@@ -50,12 +50,6 @@
       groupName: "storybook packages",
       labels: ["storybook"],
     },
-    // group minor and patches into a single PR
-    {
-      groupName: "dependencies",
-      managers: ["dockerfile", "github-actions", "nvm", "npm", "pre-commit"],
-      matchUpdateTypes: ["minor", "patch"],
-    },
   ],
   timezone: "Europe/Vienna",
   commitMessagePrefix: "DPE-250: [Change]",
