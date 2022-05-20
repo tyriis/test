@@ -1,0 +1,62 @@
+{
+  enabled: true,
+  // enable pre-commit, see: https://docs.renovatebot.com/modules/manager/pre-commit/
+  "pre-commit": {
+    enabled: true,
+  },
+  extends: ["config:base"],
+  labels: ["dependencies"],
+  packageRules: [
+    // label patches
+    {
+      matchUpdateTypes: ["patch"],
+      labels: ["patch"],
+    },
+    // label minor updates
+    {
+      matchUpdateTypes: ["minor"],
+      labels: ["minor"],
+    },
+    // label major updates
+    {
+      matchUpdateTypes: ["major"],
+      labels: ["major"],
+    },
+    // label optional dependencies
+    {
+      matchDepTypes: ["optionalDependencies"],
+      addLabels: ["optional"],
+    },
+    // label peer dependencies
+    {
+      matchDepTypes: ["peerDependencies"],
+      addLabels: ["peer"],
+    },
+    // label dev dependencies
+    {
+      matchDepTypes: ["devDependencies"],
+      addLabels: ["dev"],
+    },
+    // group all eslint packages in a single branch/PR
+    {
+      matchPackagePatterns: ["eslint"],
+      groupName: "eslint packages",
+      labels: ["eslint"],
+    },
+    // group all storybook packages in a single branch/PR
+    {
+      matchPackageNames: ["storybook"],
+      matchPackagePatterns: ["^@storybook/"],
+      groupName: "storybook packages",
+      labels: ["storybook"],
+    },
+    // group minor and patches into a single PR
+    {
+      groupName: "dependencies",
+      managers: ["dockerfile", "github-actions", "nvm", "npm", "pre-commit"],
+      matchUpdateTypes: ["minor", "patch"],
+    },
+  ],
+  timezone: "Europe/Vienna",
+  commitMessagePrefix: "DPE-250: [Change]",
+}
