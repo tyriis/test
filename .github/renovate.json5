@@ -50,7 +50,14 @@
       groupName: "storybook packages",
       labels: ["storybook"],
     },
+    // group all react packages in a single branch/PR
+    {
+      matchPackageNames: ["react"],
+      matchPackagePatterns: ["^(@types/react|react|react-dom|next)$"],
+      groupName: "react packages",
+      labels: ["react"],
+    },
   ],
   timezone: "Europe/Vienna",
-  commitMessagePrefix: "DPE-250: [Change]",
+  commitMessagePrefix: "ABC-123: [Change]",
 }
