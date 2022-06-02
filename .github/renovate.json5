@@ -4,14 +4,14 @@
   "pre-commit": {
     enabled: true,
   },
-  extends: ["config:base"],
-  addLabels: ["dependencies"],
+  extends: [
+    "config:base",
+    "default:label(dependencies)"
+  ],
+  vulnerabilityAlerts: {
+    addLabels: ["security"],
+  },
   packageRules: [
-    // label security
-    {
-      matchUpdateTypes: ["security"],
-      addLabels: ["security"],
-    },
     // label patches
     {
       matchUpdateTypes: ["patch"],
