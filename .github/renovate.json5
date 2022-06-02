@@ -5,8 +5,13 @@
     enabled: true,
   },
   extends: ["config:base"],
-  labels: ["dependencies"],
+  addLabels: ["dependencies"],
   packageRules: [
+    // label security
+    {
+      matchUpdateTypes: ["security"],
+      addLabels: ["security"],
+    },
     // label patches
     {
       matchUpdateTypes: ["patch"],
