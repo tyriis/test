@@ -65,6 +65,30 @@
       groupName: "storybook packages",
       labels: ["storybook"],
     },
+    // group all react major packages in a single branch/PR
+    {
+      matchPackageNames: ["react"],
+      matchPackagePatterns: ["^(@types/react|react|react-dom|next)$"],
+      groupName: "react packages major",
+      labels: ["react", "major"],
+      matchUpdateTypes: ["major"],
+    },
+    // group all react minor packages in a single branch/PR
+    {
+      matchPackageNames: ["react"],
+      matchPackagePatterns: ["^(@types/react|react|react-dom|next)$"],
+      groupName: "react packages minor",
+      labels: ["react", "minor"],
+      matchUpdateTypes: ["minor"],
+    },
+    // group all react patch packages in a single branch/PR
+    {
+      matchPackageNames: ["react"],
+      matchPackagePatterns: ["^(@types/react|react|react-dom|next)$"],
+      groupName: "react packages patches",
+      labels: ["react", "patch"],
+      matchUpdateTypes: ["patch"],
+    },
     // group all react packages in a single branch/PR
     {
       matchPackageNames: ["react"],
