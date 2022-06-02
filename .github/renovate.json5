@@ -55,13 +55,26 @@
       groupName: "storybook packages",
       addLabels: ["storybook"],
     },
+    // group all react minor and patch packages in a single branch/PR
+    {
+      matchPackageNames: ["react"],
+      matchPackagePatterns: ["^(@types/react|react|react-dom|next)$"],
+      groupName: "react minor and patch packages",
+      addLabels: ["react"],
+      matchUpdateTypes: ["minor", "patch"],
+    },
     // group all react major packages in a single branch/PR
     {
       matchPackageNames: ["react"],
       matchPackagePatterns: ["^(@types/react|react|react-dom|next)$"],
-      groupName: "react packages",
+      groupName: "react major packages",
       addLabels: ["react"],
+      matchUpdateTypes: ["major"],
     },
+    {
+      matchManagers: ["pre-commit"],
+      addLabels: ["dev", "pre-commit"],
+    }
   ],
   timezone: "Europe/Vienna",
   commitMessagePrefix: "ABC-123: [Change]",
