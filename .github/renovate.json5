@@ -4,7 +4,6 @@
   "pre-commit": {
     enabled: true,
   },
-  extends: ["config:base"],
   labels: ["dependencies"],
   packageRules: [
     // label patches
