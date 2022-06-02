@@ -39,23 +39,23 @@
     },
     // group all major eslint packages in a single branch/PR
     {
-      matchPackagePatterns: ["eslint"],
-      groupName: "eslint packages major",
-      labels: ["eslint", "major"],
+      extends: "packages:linters",
+      groupName: "linters major",
+      labels: ["lint", "major"],
       matchUpdateTypes: ["major"],
     },
     // group all minor eslint packages in a single branch/PR
     {
-      matchPackagePatterns: ["eslint"],
-      groupName: "eslint packages minor",
-      labels: ["eslint", "minor"],
+      extends: "packages:linters",
+      groupName: "linters minor",
+      labels: ["lint", "minor"],
       matchUpdateTypes: ["minor"],
     },
     // group all patch eslint packages in a single branch/PR
     {
-      matchPackagePatterns: ["eslint"],
-      groupName: "eslint packages patch",
-      labels: ["eslint", "patch"],
+      extends: "packages:linters",
+      groupName: "linters patch",
+      labels: ["lint", "patch"],
       matchUpdateTypes: ["patch"],
     },
     // group all storybook packages in a single branch/PR
