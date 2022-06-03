@@ -2,7 +2,7 @@ name: Pull Request Action
 on:
   push:
     branches:
-      - '[A-Z]+-[0-9]+_(new|bugfix|release|hotfix)_([a-z0-9]+_)+[a-z0-9]+'
+      - "[A-Z]+-[0-9]+_(new|bugfix|release|hotfix)*"
       # - ABC-123_new_test_ci3
 
 jobs:
@@ -13,5 +13,5 @@ jobs:
         uses: vsoch/pull-request-action@1.0.19
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PULL_REQUEST_BRANCH: 'main'
+          PULL_REQUEST_BRANCH: "main"
           PULL_REQUEST_UPDATE: "true"
