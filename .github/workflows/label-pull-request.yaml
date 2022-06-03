@@ -3,9 +3,11 @@ on:
   pull_request:
     types:
       - opened
-    branches-ignore:
-      - main
-      - renovate/*
+      - reopened
+      - synchronize
+    # branches-ignore:
+    #   - main
+    #   - renovate/*
 
 jobs:
   pr-labeler:
