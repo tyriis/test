@@ -2,9 +2,9 @@ name: PR Labeler
 on:
   pull_request:
     types: [opened]
-    branches-ignore:
-      - main
-      - renovate/*
+    # branches-ignore:
+    #   - main
+    #   - renovate/*
 
 jobs:
   pr-labeler:
