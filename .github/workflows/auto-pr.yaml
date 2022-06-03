@@ -2,8 +2,8 @@ name: Pull Request Action
 on:
   push:
     branches:
-      - "[A-Z]+-[0-9]+_(new|bugfix|release|hotfix)*"
-      - ABC-123_new_test_ci2
+      - "[A-Z]+-[0-9]+.*"
+      # - ABC-123_new_test_ci
 
 jobs:
   create-pull-request:
