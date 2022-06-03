@@ -1,9 +1,12 @@
 name: Pull Request Action
 on:
   push:
-    branches:
-      - "[A-Z]+-[0-9]+.*"
-      # - ABC-123_new_test_ci
+    # regex does not work, unclear why, so we ignore main and renovate/* branches all others will create a pr
+    # branches:
+    #   - "[A-Z]+-[0-9]+_(new|bugfix|release|hotfix)[a-z0-9_-]+"
+    branches-ignore:
+      - main
+      - renovate/*
 
 jobs:
   create-pull-request:
