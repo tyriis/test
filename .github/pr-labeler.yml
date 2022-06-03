@@ -1,4 +1,3 @@
 ---
 minor: ['*_new_*']
 patch: ['*_bugfix_*', '*_hotfix_*']
-ABC-123_new_test_ci6: ['test']
