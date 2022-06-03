@@ -3,9 +3,8 @@ on:
   pull_request:
     types:
       - opened
-    branches-ignore:
+    branches:
       - main
-      - renovate/*
 
 jobs:
   pr-labeler:
