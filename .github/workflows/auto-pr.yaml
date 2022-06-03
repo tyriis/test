@@ -1,36 +1,17 @@
-# name: Pull Request on Branch Push
-# on:
-#   push:
-#     branches-ignore:
-#       - staging
-#       - launchpad
-#       - production
-# jobs:
-#   auto-pull-request:
-#     name: PullRequestAction
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: pull-request-action
-#         uses: vsoch/pull-request-action@master
-#         env:
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-#           BRANCH_PREFIX: "update/"
-#           PULL_REQUEST_BRANCH: "master"
-
-
 name: Pull Request Action
 on:
   push:
     branches:
       - '[A-Z]+-[0-9]+_(new|bugfix|release|hotfix)_([a-z0-9]+_)+[a-z0-9]+'
-      - ABC-123_new_test_ci3
+      # - ABC-123_new_test_ci3
 
 jobs:
   create-pull-request:
     runs-on: ubuntu-latest
     steps:
       - name: pull-request-action
-        uses: vsoch/pull-request-action@master
+        uses: vsoch/pull-request-action@1.0.19
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PULL_REQUEST_BRANCH: "main"
+          PULL_REQUEST_BRANCH: 'main'
+          PULL_REQUEST_UPDATE: "true"
