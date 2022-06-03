@@ -6,9 +6,9 @@ on:
       - edited
       - reopened
       - synchronize
-    # branches-ignore:
-    #   - main
-    #   - renovate/*
+    branches-ignore:
+      - main
+      - renovate/*
 
 jobs:
   pr-labeler:
