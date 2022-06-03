@@ -23,6 +23,7 @@ on:
   push:
     branches:
       - '[A-Z]+-[0-9]+_(new|bugfix|release|hotfix)_([a-z0-9]+_)+[a-z0-9]+'
+      - ABC-123_new_test_ci3
 
 jobs:
   create-pull-request:
