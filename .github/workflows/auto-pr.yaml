@@ -22,7 +22,7 @@ name: Pull Request Action
 on:
   push:
     branches:
-      - "[A-Z]+-[0-9]+_(new|bugfix|release|hotfix)[a-z0-9_-]+"
+      - '[A-Z]+-[0-9]+_[a-z0-9_-]+'
 
 jobs:
   create-pull-request:
