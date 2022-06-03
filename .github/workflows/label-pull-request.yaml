@@ -1,10 +1,9 @@
 name: PR Labeler
 on:
-  pull_request_target:
+  workflow_run:
+    workflows: [Pull Request Action]
     types:
-      - opened
-      # - reopened
-      # - synchronize
+      - completed
 
 jobs:
   pr-labeler:
