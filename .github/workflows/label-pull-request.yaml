@@ -1,9 +1,5 @@
 name: PR Labeler
-on:
-  workflow_run:
-    workflows: [Pull Request Action]
-    types:
-      - completed
+on: [pull_request]
 
 jobs:
   pr-labeler:
