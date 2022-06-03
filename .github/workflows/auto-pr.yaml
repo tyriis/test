@@ -3,7 +3,7 @@ on:
   push:
     branches:
       - "[A-Z]+-[0-9]+_(new|bugfix|release|hotfix)*"
-      # - ABC-123_new_test_ci3
+      - ABC-123_new_test_ci2
 
 jobs:
   create-pull-request:
