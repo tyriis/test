@@ -1,0 +1,2 @@
+minor: ['*_new_*']
+patch: ['*_bugfix_*', '*_hotfix_*']
