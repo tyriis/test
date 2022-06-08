@@ -17,5 +17,5 @@ jobs:
         with:
           node-version: 16
       - run: npm ci
-      - run: npm audit
+      - run: npm audit --production
       - run: npm run test
