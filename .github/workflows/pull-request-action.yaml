@@ -1,4 +1,4 @@
-name: Pull Request Action
+name: Auto PR
 on:
   push:
     # regex does not work, unclear why, so we ignore main, wip/* and renovate/* branches all others will create a pr
