@@ -1,3 +1,4 @@
 ---
 minor: ['*_new_*']
 patch: ['*_bugfix_*', '*_hotfix_*']
+test: ['wip/*']
