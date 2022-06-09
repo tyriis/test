@@ -1,3 +1,4 @@
+---
 name: PR Automerge
 on:
   pull_request_review:
