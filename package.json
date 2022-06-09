@@ -41,7 +41,7 @@
     "eslint-plugin-jest-dom": "4.0.2",
     "eslint-plugin-prettier": "4.0.0",
     "eslint-plugin-storybook": "0.5.12",
-    "eslint-plugin-tailwindcss": "3.5.0",
+    "eslint-plugin-tailwindcss": "3.5.2",
     "eslint-plugin-testing-library": "5.5.1",
     "jest": "28.1.0",
     "postcss": "8.4.14",
