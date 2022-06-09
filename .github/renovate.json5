@@ -15,7 +15,8 @@
     // label patches
     {
       matchUpdateTypes: ["patch"],
-      addLabels: ["patch", "automerge"],
+      addLabels: ["patch"],
+      automerge: true,
     },
     // label minor updates
     {
@@ -40,13 +41,15 @@
     // label dev dependencies
     {
       matchDepTypes: ["devDependencies"],
-      addLabels: ["dev", "automerge"],
+      addLabels: ["dev"],
+      automerge: true,
     },
     // group all eslint packages in a single branch/PR
     {
       matchPackagePatterns: ["eslint"],
       groupName: "eslint packages",
       addLabels: ["eslint"],
+      automerge: true,
     },
     // group all storybook packages in a single branch/PR
     {
@@ -54,6 +57,7 @@
       matchPackagePatterns: ["^@storybook/"],
       groupName: "storybook packages",
       addLabels: ["storybook"],
+      automerge: true,
     },
     // group all react minor and patch packages in a single branch/PR
     {
@@ -61,7 +65,8 @@
       matchPackagePatterns: ["^(@types/react|react|react-dom|next)$"],
       groupName: "react minor and patch packages",
       addLabels: ["react"],
-      matchUpdateTypes: ["minor", "patch", "automerge"],
+      matchUpdateTypes: ["minor", "patch"],
+      automerge: true,
     },
     // group all react major packages in a single branch/PR
     {
@@ -73,7 +78,8 @@
     },
     {
       matchManagers: ["pre-commit"],
-      addLabels: ["dev", "pre-commit", "automerge"],
+      addLabels: ["dev", "pre-commit"],
+      automerge: true,
     }
   ],
   timezone: "Europe/Vienna",
