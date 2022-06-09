@@ -15,7 +15,7 @@
     // label patches
     {
       matchUpdateTypes: ["patch"],
-      addLabels: ["patch"],
+      addLabels: ["patch", "automerge"],
     },
     // label minor updates
     {
@@ -40,7 +40,7 @@
     // label dev dependencies
     {
       matchDepTypes: ["devDependencies"],
-      addLabels: ["dev"],
+      addLabels: ["dev", "automerge"],
     },
     // group all eslint packages in a single branch/PR
     {
@@ -61,7 +61,7 @@
       matchPackagePatterns: ["^(@types/react|react|react-dom|next)$"],
       groupName: "react minor and patch packages",
       addLabels: ["react"],
-      matchUpdateTypes: ["minor", "patch"],
+      matchUpdateTypes: ["minor", "patch", "automerge"],
     },
     // group all react major packages in a single branch/PR
     {
@@ -73,7 +73,7 @@
     },
     {
       matchManagers: ["pre-commit"],
-      addLabels: ["dev", "pre-commit"],
+      addLabels: ["dev", "pre-commit", "automerge"],
     }
   ],
   timezone: "Europe/Vienna",
