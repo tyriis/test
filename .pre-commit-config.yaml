@@ -16,7 +16,7 @@ repos:
         files: \.[jt]sx?$  # *.js, *.jsx, *.ts and *.tsx
         types: [file]
   - repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v4.2.0
+    rev: v4.3.0
     hooks:
       - id: check-added-large-files
         files: \.([jt]sx?|yaml|yml|md)$  # *.js, *.jsx, *.ts, *.tsx, *.yaml, *.yml and *.md
