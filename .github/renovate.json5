@@ -22,6 +22,7 @@
     {
       matchUpdateTypes: ["minor"],
       addLabels: ["minor"],
+      automerge: true,
     },
     // label major updates
     {
