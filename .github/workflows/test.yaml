@@ -52,7 +52,7 @@ jobs:
       - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
         run: 'npm version ${{ steps.detect.outputs.releaseType }} --sign-git-tag -m "Release: %s"'
       - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
-        run: git push
+        run: git push && git push --tags
       - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
         run: npm publish
         env:
