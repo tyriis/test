@@ -45,6 +45,11 @@ jobs:
       # - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
       #   run: npm version ${{ steps.detect.outputs.releaseType }}
       - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
+        name: setup git
+        uses: oleksiyrudenko/gha-git-credentials@v2-latest
+        with:
+          token: '${{ secrets.GITHUB_TOKEN }}'
+      - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
         name: 'change version'
         uses: reedyuk/npm-version@1.1.1
         with:
