@@ -20,28 +20,35 @@ jobs:
       # Use the output from the `detectRelease` step
       - name: Get the output releaseType
         run: echo "The releaseType was ${{ steps.detect.outputs.releaseType }}"
-  create_release:
-    if:  ${{ steps.detect.outputs.releaseType != 'skip' }}
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
+      - if:  ${{ steps.detect.outputs.releaseType != 'skip' }}
+        uses: actions/checkout@v3
         with:
           ref: ${{ github.head_ref }}
-      - uses: actions/setup-node@v3
+      - if:  ${{ steps.detect.outputs.releaseType != 'skip' }}
+        uses: actions/setup-node@v3
         with:
           node-version: 16
-      - name: Setup Dependency Cache
+          registry-url: https://npm.pkg.github.com/
+      - if:  ${{ steps.detect.outputs.releaseType != 'skip' }}
+        name: Setup Dependency Cache
         uses: actions/cache@v3
         with:
           path: ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
           restore-keys: npm-
-      - run: npm ci
-      - run: npm audit --production
-      - run: npm run test
-      - run: npm version ${{ steps.detectRelease.outputs.releaseType }}
-      # - run: npm run start
-      # - run: npm run e2etest
-      - uses: stefanzweifel/git-auto-commit-action@v4
+      - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
+        run: npm ci
+      - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
+        run: npm audit --production
+      - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
+        run: npm run test
+      - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
+        run: npm version ${{ steps.detectRelease.outputs.releaseType }}
+      - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
+        uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'Release: ${{ steps.detectRelease.outputs.releaseType }}'
+      - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
