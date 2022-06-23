@@ -13,18 +13,20 @@ jobs:
     name: Semantic Version detection
     steps:
       - name: Detect release type
-        id: detectRelease
+        id: detect
         uses: tyriis/autoversion-release@v1.15
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # Use the output from the `detectRelease` step
       - name: Get the output releaseType
-        run: echo "The releaseType was ${{ steps.detectRelease.outputs.releaseType }}"
+        run: echo "The releaseType was ${{ steps.detect.outputs.releaseType }}"
   create_release:
-    if: steps.detectRelease.outputs.releaseType != 'skip'
+    if:  ${{ steps.detect.outputs.releaseType != 'skip' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
       - uses: actions/setup-node@v3
         with:
           node-version: 16
