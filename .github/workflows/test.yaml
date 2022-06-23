@@ -28,6 +28,7 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: 16
+          registry-url: https://npm.pkg.github.com/
       - if:  ${{ steps.detect.outputs.releaseType != 'skip' }}
         name: Setup Dependency Cache
         uses: actions/cache@v3
@@ -35,15 +36,19 @@ jobs:
           path: ~/.npm
           key: npm-${{ hashFiles('package-lock.json') }}
           restore-keys: npm-
-      - if:  ${{ steps.detect.outputs.releaseType != 'skip' }}
+      - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
         run: npm ci
-      - if:  ${{ steps.detect.outputs.releaseType != 'skip' }}
+      - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
         run: npm audit --production
-      - if:  ${{ steps.detect.outputs.releaseType != 'skip' }}
+      - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
         run: npm run test
-      - if:  ${{ steps.detect.outputs.releaseType != 'skip' }}
+      - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
         run: npm version ${{ steps.detectRelease.outputs.releaseType }}
-      - if:  ${{ steps.detect.outputs.releaseType != 'skip' }}
+      - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
           commit_message: 'Release: ${{ steps.detectRelease.outputs.releaseType }}'
+      - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
