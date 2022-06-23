@@ -50,12 +50,10 @@ jobs:
         with:
           token: '${{ secrets.GITHUB_TOKEN }}'
       - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
-        run: npm version ${{ steps.detect.outputs.releaseType }}
+        run: 'npm version ${{ steps.detect.outputs.releaseType }} --sign-git-tag -m "Release: %s"'
       - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
-        run: git add .
-      - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
-        run: git push
+        run: git push && git push --tags
       - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
         run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
