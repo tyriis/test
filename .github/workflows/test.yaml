@@ -42,19 +42,20 @@ jobs:
         run: npm audit --production
       - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
         run: npm run test
-      - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
-        run: npm version ${{ steps.detect.outputs.releaseType }}
-      - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: 'Release: ${{ steps.detect.outputs.releaseType }}'
-          branch: main
+      # - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
+      #   run: npm version ${{ steps.detect.outputs.releaseType }}
       - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
         name: 'change version'
         uses: reedyuk/npm-version@1.1.1
         with:
           version: ${{ steps.detect.outputs.releaseType }}
           git-tag-version: 'true'
-        # run: npm publish
+      - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'Release: ${{ steps.detect.outputs.releaseType }}'
+          branch: main
+      - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
+        run: npm run publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
