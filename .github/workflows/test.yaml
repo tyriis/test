@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Detect release type
         id: detect
-        uses: tyriis/autoversion-release@v1.15
+        uses: tyriis/autoversion-release@v1.16
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # Use the output from the `detectRelease` step
@@ -23,7 +23,7 @@ jobs:
       - if:  ${{ steps.detect.outputs.releaseType != 'skip' }}
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.head_ref }}
+          ref: main
       - if:  ${{ steps.detect.outputs.releaseType != 'skip' }}
         uses: actions/setup-node@v3
         with:
