@@ -1,6 +1,6 @@
 {
   "name": "@tyriis/test",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "test",
   "license": "UNLICENSED",
   "scripts": {
@@ -9,7 +9,7 @@
     "build": "echo 'build'",
     "prepare": "npm run build",
     "prepublishOnly": "npm test && npm run lint",
-    "preversion" : "npm run lint"
+    "preversion": "npm run lint"
   },
   "dependencies": {
     "@headlessui/react": "1.6.5",
