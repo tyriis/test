@@ -7,7 +7,7 @@ on:
       - closed
 
 jobs:
-  semantic_version_detect:
+  release:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     name: Semantic Version detection
@@ -18,8 +18,8 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # Use the output from the `detectRelease` step
-      - name: Get the output releaseType
-        run: echo "The releaseType was ${{ steps.detect.outputs.releaseType }}"
+      # - name: Get the output releaseType
+      #   run: echo "The releaseType was ${{ steps.detect.outputs.releaseType }}"
       - if:  ${{ steps.detect.outputs.releaseType != 'skip' }}
         uses: actions/checkout@v3
         with:
@@ -54,10 +54,7 @@ jobs:
       - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
         run: git add .
       - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
-        uses: stefanzweifel/git-auto-commit-action@v4
-        with:
-          commit_message: 'Release: ${{ steps.detect.outputs.releaseType }}'
-          branch: main
+        run: git push
       - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
         run: npm publish
         env:
