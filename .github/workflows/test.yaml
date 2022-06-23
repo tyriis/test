@@ -56,6 +56,6 @@ jobs:
           commit_message: 'Release: ${{ steps.detect.outputs.releaseType }}'
           branch: main
       - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
-        run: npm run publish
+        run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
