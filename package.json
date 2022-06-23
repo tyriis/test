@@ -6,7 +6,10 @@
   "scripts": {
     "test": "echo 'test'",
     "lint": "echo 'eslint'",
-    "build": "echo 'build'"
+    "build": "echo 'build'",
+    "prepare": "npm run build",
+    "prepublishOnly": "npm test && npm run lint",
+    "preversion" : "npm run lint"
   },
   "dependencies": {
     "@headlessui/react": "1.6.5",

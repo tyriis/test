@@ -20,3 +20,26 @@ jobs:
       # Use the output from the `detectRelease` step
       - name: Get the output releaseType
         run: echo "The releaseType was ${{ steps.detectRelease.outputs.releaseType }}"
+  create_release:
+    if: steps.detectRelease.outputs.releaseType != 'skip'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Setup Dependency Cache
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: npm-${{ hashFiles('package-lock.json') }}
+          restore-keys: npm-
+      - run: npm ci
+      - run: npm audit --production
+      - run: npm run test
+      - run: npm version ${{ steps.detectRelease.outputs.releaseType }}
+      # - run: npm run start
+      # - run: npm run e2etest
+      - uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: 'Release: ${{ steps.detectRelease.outputs.releaseType }}'
