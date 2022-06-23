@@ -43,11 +43,12 @@ jobs:
       - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
         run: npm run test
       - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
-        run: npm version ${{ steps.detectRelease.outputs.releaseType }}
+        run: npm version ${{ steps.detect.outputs.releaseType }}
       - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
         uses: stefanzweifel/git-auto-commit-action@v4
         with:
-          commit_message: 'Release: ${{ steps.detectRelease.outputs.releaseType }}'
+          commit_message: 'Release: ${{ steps.detect.outputs.releaseType }}'
+          branch: main
       - if: ${{ steps.detect.outputs.releaseType != 'skip' }}
         run: npm publish
         env:
