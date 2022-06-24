@@ -11,12 +11,18 @@ on:
       - ready_for_review
       - reopened
       - unlocked
+    branches-ignore:
+      - renovate/*
   pull_request_review:
     types:
       - submitted
+    branches-ignore:
+      - renovate/*
   check_suite:
     types:
       - completed
+    branches-ignore:
+      - renovate/*
   status: {}
 jobs:
   automerge:
