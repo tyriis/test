@@ -14,7 +14,7 @@ jobs:
     steps:
       - name: Detect release type
         id: detect
-        uses: tyriis/autoversion-release@v1.16
+        uses: tyriis/autoversion-release@v1.17
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       # Use the output from the `detectRelease` step
