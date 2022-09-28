@@ -2,7 +2,7 @@ name: Auto PR
 on:
   push:
     branches:
-      - "release/*"
+      - release/**
 
 jobs:
   create-pull-request:
@@ -23,4 +23,4 @@ jobs:
           uses: peter-evans/create-pull-request@v4
           with:
             token: ${{ secrets.GITHUB_TOKEN }}
-            branch: main
+            base: main
