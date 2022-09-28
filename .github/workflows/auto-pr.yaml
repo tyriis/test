@@ -17,7 +17,7 @@ jobs:
       #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       #     PULL_REQUEST_BRANCH: "main"
       #     PULL_REQUEST_UPDATE: "false"
-
+        - run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
         - name: Create Pull Request
           uses: peter-evans/create-pull-request@v4
           with:
