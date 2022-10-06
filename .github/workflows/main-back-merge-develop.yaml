@@ -30,3 +30,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PULL_REQUEST_BRANCH: "develop"
           PULL_REQUEST_UPDATE: "true"
+          PULL_REQUEST_FROM_BRANCH: "main"
