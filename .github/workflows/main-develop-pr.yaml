@@ -40,5 +40,5 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           number: ${{ steps.pr.outputs.pull_request_number }}
-          method: squash
+          method: merge
           repo: tyriis/test
