@@ -1,0 +1,29 @@
+---
+# This workflow is executed whenever there is a merge into `main`
+# Creates a PR from main to `develop` with label automerge to trigger automerge workflow
+
+name: develop merge back pr
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
+
+jobs:
+  demo:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+
+      # https://github.com/actions/checkout
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      # https://github.com/vsoch/pull-request-action
+      - name: Create PR
+        uses: vsoch/pull-request-action@1.0.20
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PULL_REQUEST_BRANCH: "develop"
+          PULL_REQUEST_UPDATE: "true"
