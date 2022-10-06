@@ -23,12 +23,6 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v3
 
-      - name: Derive from branch name
-        run: |
-            # do custom parsing of your code / date to derive a branch from
-            PR_BRANCH_FROM=release-v$(cat VERSION)
-            echo "PULL_REQUEST_FROM_BRANCH=${PR_BRANCH_FROM}" >> $GITHUB_ENV
-
       # https://github.com/vsoch/pull-request-action
       - name: Create PR
         id: pr
@@ -37,7 +31,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PULL_REQUEST_BRANCH: develop
           PULL_REQUEST_UPDATE: "true"
-          # PULL_REQUEST_FROM_BRANCH: main
+          PULL_REQUEST_FROM_BRANCH: main
           PULL_REQUEST_TITLE: merge back to develop
 
       # https://github.com/juliangruber/merge-pull-request-action
