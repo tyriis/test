@@ -1,0 +1,50 @@
+---
+# This workflow is executed whenever there is a merge into `main`
+# Creates a PR from main to `develop` with label automerge to trigger automerge workflow
+
+name: PR from main to develop
+on:
+  pull_request:
+    branches:
+      - main
+    types:
+      - closed
+
+jobs:
+  demo:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+
+      # https://github.com/actions/checkout
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Derive from branch name
+        run: |
+            # do custom parsing of your code / date to derive a branch from
+            PR_BRANCH_FROM=release-v$(cat VERSION)
+            echo "PULL_REQUEST_FROM_BRANCH=${PR_BRANCH_FROM}" >> $GITHUB_ENV
+
+      # https://github.com/vsoch/pull-request-action
+      - name: Create PR
+        id: pr
+        uses: vsoch/pull-request-action@1.0.20
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PULL_REQUEST_BRANCH: develop
+          PULL_REQUEST_UPDATE: "true"
+          # PULL_REQUEST_FROM_BRANCH: main
+          PULL_REQUEST_TITLE: merge back to develop
+
+      # https://github.com/juliangruber/merge-pull-request-action
+      - name: Merge Pull Request
+        uses: juliangruber/merge-pull-request-action@v1.1.0
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          number: ${{ steps.pr.outputs.pull_request_number }}
+          method: squash
+          repo: tyriis/test
