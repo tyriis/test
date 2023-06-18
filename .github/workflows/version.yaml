@@ -39,7 +39,7 @@
               git status --short
 
           - name: commit
-            uses: tyriis/multi-file-commit@v0.1.4
+            uses: tyriis/multi-file-commit@v0.1.6
             with:
               # The commit message for the commit.
               message: ${{ inputs.message }}
