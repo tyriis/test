@@ -33,6 +33,7 @@
           - name: git add files
             run: |
               git add package.json package-lock.json
+              git status --short | grep A | awk -F ' ' '{print $2}'
 
           - name: commit
             uses: tyriis/multi-file-commit@v0.1.0
