@@ -39,7 +39,7 @@
               git status --short | grep A | awk -F ' ' '{print $2}'
 
           - name: commit
-            uses: tyriis/multi-file-commit@v0.1.0
+            uses: tyriis/multi-file-commit@v0.1.1
             with:
               # The commit message for the commit.
               message: ${{ inputs.message }}
