@@ -30,6 +30,10 @@
             run: |
               npm --no-git-tag-version version patch
 
+          - name: git add files
+            run: |
+              git add package.json package-lock.json
+
           - name: commit
             uses: tyriis/multi-file-commit@v0.1.0
             with:
