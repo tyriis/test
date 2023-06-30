@@ -43,9 +43,7 @@
               git status --short
 
           - name: commit
-            uses: tyriis/multi-file-commit@v0.3.0
-            env:
-              NODE_LOG_LEVEL: debug
+            uses: tyriis/multi-file-commit@v0.3.1
             with:
               # The commit message for the commit.
               message: ${{ inputs.message }}
