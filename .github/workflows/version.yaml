@@ -8,6 +8,10 @@
             description: Commit message
             required: true
             type: string
+          tag:
+            description: tag
+            required: false
+            type: string
 
     jobs:
       version:
@@ -39,7 +43,8 @@
               git status --short
 
           - name: commit
-            uses: tyriis/multi-file-commit@v0.1.7
+            uses: tyriis/multi-file-commit@v0.3.0
             with:
               # The commit message for the commit.
               message: ${{ inputs.message }}
+              tag: ${{ inputs.tag }}
