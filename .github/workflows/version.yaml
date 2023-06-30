@@ -44,6 +44,8 @@
 
           - name: commit
             uses: tyriis/multi-file-commit@v0.3.0
+            env:
+              NODE_LOG_LEVEL: debug
             with:
               # The commit message for the commit.
               message: ${{ inputs.message }}
