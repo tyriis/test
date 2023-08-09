@@ -4,6 +4,9 @@
   npm: {
     enabled: false,
   },
+  pre-commit: {
+    enabled: false,
+  },
   extends: [
     "github>bjw-s/home-ops//.github/renovate/disabledDatasources.json5",
     "github>tyriis/renovate-config//dashboard/default.json5",
@@ -12,8 +15,8 @@
     "github>tyriis/renovate-config//flux/file-match.json5",
     // "github>tyriis/renovate-config//flux/loki-require-approval.json5",
     "github>tyriis/renovate-config//flux/prevent-automerge-loki.json5",
-    "github>tyriis/renovate-config//pre-commit/default.json5",
-    "github>tyriis/renovate-config//pre-commit/freeze-lucas-c.json5",
+    //"github>tyriis/renovate-config//pre-commit/default.json5",
+    //"github>tyriis/renovate-config//pre-commit/freeze-lucas-c.json5",
     "github>tyriis/renovate-config//github-actions/default.json5",
     "github>tyriis/renovate-config//terraform/default.json5",
   ],
