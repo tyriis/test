@@ -4,7 +4,7 @@
   extends: [
     "github>bjw-s/home-ops//.github/renovate/disabledDatasources.json5",
     "github>tyriis/renovate-config//dashboard/default.json5",
-    "github>tyriis/renovate-config//dashboard/vulnerability-summary.json5",
+    // "github>tyriis/renovate-config//dashboard/vulnerability-summary.json5",
     "github>tyriis/renovate-config//flux/default.json5",
     "github>tyriis/renovate-config//flux/file-match.json5",
     // "github>tyriis/renovate-config//flux/loki-require-approval.json5",
