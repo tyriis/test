@@ -36,7 +36,7 @@ jobs:
 
       # https://github.com/juliangruber/merge-pull-request-action
       - name: Merge Pull Request
-        uses: juliangruber/merge-pull-request-action@v1.1.0
+        uses: juliangruber/merge-pull-request-action@v1.2.0
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           number: ${{ steps.pr.outputs.pull_request_number }}
