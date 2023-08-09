@@ -1,6 +1,9 @@
 {
   enabled: true,
   platform: "github",
+  npm: {
+    enabled: false,
+  },
   extends: [
     "github>bjw-s/home-ops//.github/renovate/disabledDatasources.json5",
     "github>tyriis/renovate-config//dashboard/default.json5",
