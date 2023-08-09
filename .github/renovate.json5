@@ -4,9 +4,12 @@
   npm: {
     enabled: false,
   },
-  pre-commit: {
+  "pre-commit": {
     enabled: false,
   },
+  flux: {
+    enabled: true,
+  }
   extends: [
     "github>bjw-s/home-ops//.github/renovate/disabledDatasources.json5",
     "github>tyriis/renovate-config//dashboard/default.json5",
