@@ -1,88 +1,78 @@
 {
   enabled: true,
-  // enable pre-commit, see: https://docs.renovatebot.com/modules/manager/pre-commit/
-  "pre-commit": {
-    enabled: true,
-  },
+  platform: "github",
   extends: [
-    "config:base",
-    "default:label(dependencies)"
+    "github>bjw-s/home-ops//.github/renovate/disabledDatasources.json5",
+    "github>tyriis/renovate-config//dashboard/default.json5",
+    "github>tyriis/renovate-config//dashboard/vulnerability-summary.json5",
+    "github>tyriis/renovate-config//flux/default.json5",
+    "github>tyriis/renovate-config//flux/file-match.json5",
+    "github>tyriis/renovate-config//flux/disable-automerge-loki.json5",
+    "github>tyriis/renovate-config//pre-commit/default.json5",
+    "github>tyriis/renovate-config//pre-commit/freeze-lucas-c.json5",
+    "github>tyriis/renovate-config//github-actions/default.json5",
+    "github>tyriis/renovate-config//terraform/default.json5",
   ],
-  vulnerabilityAlerts: {
-    addLabels: ["security"],
+  semanticCommits: "enabled",
+  suppressNotifications: ["prIgnoreNotification"],
+  rebaseWhen: "conflicted",
+  "helm-values": {
+    fileMatch: ["kubernetes/.+/helm-release\\.ya?ml$"],
   },
+  kubernetes: {
+    fileMatch: ["kubernetes/.+\\.ya?ml$"],
+    ignorePaths: ["kubernetes/flux/flux-manifests"],
+  },
+  regexManagers: [],
   packageRules: [
-    // label patches
+    // setup datasources
     {
-      matchUpdateTypes: ["patch"],
-      addLabels: ["patch"],
-      automerge: true,
+      matchDatasources: ["helm"],
+      separateMinorPatch: true,
+      ignoreDeprecated: true,
     },
-    // label minor updates
+    // global docker datasource settings
     {
+      matchDatasources: ["docker"],
+      enabled: true,
+      commitMessageTopic: "container image {{depName}}",
+      commitMessageExtra: "to {{#if isSingleVersion}}v{{{newVersion}}}{{else}}{{{newValue}}}{{/if}}",
+      matchUpdateTypes: ["major", "minor", "patch"],
+    },
+    // add labels according to package and update types
+    {
+      matchDatasources: ["docker"],
+      matchUpdateTypes: ["major"],
+      labels: ["renovate/image", "major"],
+    },
+    {
+      matchDatasources: ["docker"],
       matchUpdateTypes: ["minor"],
-      addLabels: ["minor"],
+      labels: ["renovate/image", "minor"],
       automerge: true,
     },
-    // label major updates
     {
+      matchDatasources: ["docker"],
+      matchUpdateTypes: ["patch"],
+      labels: ["renovate/image", "patch"],
+      automerge: true,
+    },
+    {
+      matchDatasources: ["helm"],
       matchUpdateTypes: ["major"],
-      addLabels: ["major"],
+      labels: ["helm", "major"],
     },
-    // label optional dependencies
     {
-      matchDepTypes: ["optionalDependencies"],
-      addLabels: ["optional"],
-    },
-    // label peer dependencies
-    {
-      matchDepTypes: ["peerDependencies"],
-      addLabels: ["peer"],
-    },
-    // label dev dependencies
-    {
-      matchDepTypes: ["devDependencies"],
-      addLabels: ["dev"],
+      matchDatasources: ["helm"],
+      matchUpdateTypes: ["minor"],
+      labels: ["helm", "minor"],
       automerge: true,
     },
-    // group all eslint packages in a single branch/PR
     {
-      matchPackagePatterns: ["eslint"],
-      groupName: "eslint packages",
-      addLabels: ["eslint"],
+      matchDatasources: ["helm"],
+      matchUpdateTypes: ["patch"],
+      labels: ["helm", "patch"],
       automerge: true,
     },
-    // group all storybook packages in a single branch/PR
-    {
-      matchPackageNames: ["storybook"],
-      matchPackagePatterns: ["^@storybook/"],
-      groupName: "storybook packages",
-      addLabels: ["storybook"],
-      automerge: true,
-    },
-    // group all react minor and patch packages in a single branch/PR
-    {
-      matchPackageNames: ["react"],
-      matchPackagePatterns: ["^(@types/react|react|react-dom|next)$"],
-      groupName: "react minor and patch packages",
-      addLabels: ["react"],
-      matchUpdateTypes: ["minor", "patch"],
-      automerge: true,
-    },
-    // group all react major packages in a single branch/PR
-    {
-      matchPackageNames: ["react"],
-      matchPackagePatterns: ["^(@types/react|react|react-dom|next)$"],
-      groupName: "react major packages",
-      addLabels: ["react"],
-      matchUpdateTypes: ["major"],
-    },
-    {
-      matchManagers: ["pre-commit"],
-      addLabels: ["dev", "pre-commit"],
-      automerge: true,
-    }
   ],
-  timezone: "Europe/Vienna",
-  commitMessagePrefix: "ABC-123: [Change]",
 }

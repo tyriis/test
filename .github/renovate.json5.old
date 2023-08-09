@@ -1,0 +1,88 @@
+{
+  enabled: true,
+  // enable pre-commit, see: https://docs.renovatebot.com/modules/manager/pre-commit/
+  "pre-commit": {
+    enabled: true,
+  },
+  extends: [
+    "config:base",
+    "default:label(dependencies)"
+  ],
+  vulnerabilityAlerts: {
+    addLabels: ["security"],
+  },
+  packageRules: [
+    // label patches
+    {
+      matchUpdateTypes: ["patch"],
+      addLabels: ["patch"],
+      automerge: true,
+    },
+    // label minor updates
+    {
+      matchUpdateTypes: ["minor"],
+      addLabels: ["minor"],
+      automerge: true,
+    },
+    // label major updates
+    {
+      matchUpdateTypes: ["major"],
+      addLabels: ["major"],
+    },
+    // label optional dependencies
+    {
+      matchDepTypes: ["optionalDependencies"],
+      addLabels: ["optional"],
+    },
+    // label peer dependencies
+    {
+      matchDepTypes: ["peerDependencies"],
+      addLabels: ["peer"],
+    },
+    // label dev dependencies
+    {
+      matchDepTypes: ["devDependencies"],
+      addLabels: ["dev"],
+      automerge: true,
+    },
+    // group all eslint packages in a single branch/PR
+    {
+      matchPackagePatterns: ["eslint"],
+      groupName: "eslint packages",
+      addLabels: ["eslint"],
+      automerge: true,
+    },
+    // group all storybook packages in a single branch/PR
+    {
+      matchPackageNames: ["storybook"],
+      matchPackagePatterns: ["^@storybook/"],
+      groupName: "storybook packages",
+      addLabels: ["storybook"],
+      automerge: true,
+    },
+    // group all react minor and patch packages in a single branch/PR
+    {
+      matchPackageNames: ["react"],
+      matchPackagePatterns: ["^(@types/react|react|react-dom|next)$"],
+      groupName: "react minor and patch packages",
+      addLabels: ["react"],
+      matchUpdateTypes: ["minor", "patch"],
+      automerge: true,
+    },
+    // group all react major packages in a single branch/PR
+    {
+      matchPackageNames: ["react"],
+      matchPackagePatterns: ["^(@types/react|react|react-dom|next)$"],
+      groupName: "react major packages",
+      addLabels: ["react"],
+      matchUpdateTypes: ["major"],
+    },
+    {
+      matchManagers: ["pre-commit"],
+      addLabels: ["dev", "pre-commit"],
+      automerge: true,
+    }
+  ],
+  timezone: "Europe/Vienna",
+  commitMessagePrefix: "ABC-123: [Change]",
+}
