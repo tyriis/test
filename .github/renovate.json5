@@ -69,12 +69,12 @@
       matchUpdateTypes: ["major"],
       labels: ["helm", "major"],
     },
-    {
-      matchDatasources: ["helm"],
-      matchUpdateTypes: ["minor"],
-      labels: ["helm", "minor"],
-      automerge: true,
-    },
+    // {
+    //   matchDatasources: ["helm"],
+    //   matchUpdateTypes: ["minor"],
+    //   labels: ["helm", "minor"],
+    //   automerge: true,
+    // },
     {
       matchDatasources: ["helm"],
       matchUpdateTypes: ["patch"],
