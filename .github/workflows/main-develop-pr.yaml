@@ -26,7 +26,7 @@ jobs:
       # https://github.com/vsoch/pull-request-action
       - name: Create PR
         id: pr
-        uses: vsoch/pull-request-action@1.0.20
+        uses: vsoch/pull-request-action@1.0.24
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PULL_REQUEST_BRANCH: develop
