@@ -10,32 +10,24 @@
   extends: [
     "github>bjw-s/home-ops//.github/renovate/disabledDatasources.json5",
     "github>tyriis/renovate-config//default.json5",
-    "github>tyriis/renovate-config//dashboard/default.json5",
     // "github>tyriis/renovate-config//dashboard/vulnerability-summary.json5",
-    "github>tyriis/renovate-config//flux/default.json5",
     "github>tyriis/renovate-config//flux/file-match.json5",
     "github>tyriis/renovate-config//flux/require-approval-loki.json5",
+    "github>tyriis/renovate-config//pre-commit/freeze-lucas-c.json5",
     "github>tyriis/test//require-approval-grafana.json5",
-    // "github>tyriis/renovate-config//flux/prevent-automerge-loki.json5",
-    //"github>tyriis/renovate-config//pre-commit/default.json5",
-    //"github>tyriis/renovate-config//pre-commit/freeze-lucas-c.json5",
-    "github>tyriis/renovate-config//github-actions/default.json5",
-    "github>tyriis/renovate-config//terraform/default.json5",
-    "github>tyriis/renovate-config//pre-commit/default.json5",
+    "github>tyriis/renovate-config//labels/semantic.json5",
   ],
   semanticCommits: "enabled",
-  suppressNotifications: ["prIgnoreNotification"],
-  rebaseWhen: "conflicted",
-  "helm-values": {
+  /*"helm-values": {
     fileMatch: ["kubernetes/.+/helm-release\\.ya?ml$"],
   },
   kubernetes: {
     fileMatch: ["kubernetes/.+\\.ya?ml$"],
     ignorePaths: ["kubernetes/flux/flux-manifests"],
   },
-  regexManagers: [],
+  regexManagers: [],*/
   // enabledManagers: [],
-  packageRules: [
+  /*packageRules: [
     // setup datasources
     {
       matchDatasources: ["helm"],
@@ -85,5 +77,5 @@
       labels: ["helm", "patch"],
       // automerge: true,
     },
-  ],
+  ],*/
 }
