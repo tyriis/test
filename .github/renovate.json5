@@ -32,6 +32,7 @@
     ignorePaths: ["kubernetes/flux/flux-manifests"],
   },
   regexManagers: [],
+  enabledManagers: [],
   packageRules: [
     // setup datasources
     {
