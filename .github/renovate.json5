@@ -1,12 +1,9 @@
 {
   // enabled: true,
   platform: "github",
-  /* npm: {
+  npm: {
     enabled: false,
   },
-  "pre-commit": {
-    enabled: false,
-  },*/
   extends: [
     "github>bjw-s/home-ops//.github/renovate/disabledDatasources.json5",
     "github>tyriis/renovate-config//default.json5",
@@ -18,6 +15,7 @@
     "github>tyriis/renovate-config//labels/semantic.json5",
   ],
   semanticCommits: "enabled",
+  semanticCommitScope: "{{depName}}",
   /*"helm-values": {
     fileMatch: ["kubernetes/.+/helm-release\\.ya?ml$"],
   },
