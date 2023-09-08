@@ -1,14 +1,15 @@
 {
-  enabled: true,
+  // enabled: true,
   platform: "github",
-  npm: {
+  /* npm: {
     enabled: false,
   },
   "pre-commit": {
     enabled: false,
-  },
+  },*/
   extends: [
     "github>bjw-s/home-ops//.github/renovate/disabledDatasources.json5",
+    "github>tyriis/renovate-config//default.json5",
     "github>tyriis/renovate-config//dashboard/default.json5",
     // "github>tyriis/renovate-config//dashboard/vulnerability-summary.json5",
     "github>tyriis/renovate-config//flux/default.json5",
@@ -20,6 +21,7 @@
     //"github>tyriis/renovate-config//pre-commit/freeze-lucas-c.json5",
     "github>tyriis/renovate-config//github-actions/default.json5",
     "github>tyriis/renovate-config//terraform/default.json5",
+    "github>tyriis/renovate-config//pre-commit/default.json5",
   ],
   semanticCommits: "enabled",
   suppressNotifications: ["prIgnoreNotification"],
@@ -32,7 +34,7 @@
     ignorePaths: ["kubernetes/flux/flux-manifests"],
   },
   regexManagers: [],
-  enabledManagers: [],
+  // enabledManagers: [],
   packageRules: [
     // setup datasources
     {
