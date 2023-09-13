@@ -14,8 +14,7 @@
     "github>tyriis/test//require-approval-grafana.json5",
     "github>tyriis/renovate-config//labels/semantic.json5",
   ],
-  semanticCommits: "enabled",
-  semanticCommitScope: "{{manager}}",
+
   /*"helm-values": {
     fileMatch: ["kubernetes/.+/helm-release\\.ya?ml$"],
   },
