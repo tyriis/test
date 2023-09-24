@@ -51,7 +51,7 @@ spec:
       zigbee2mqtt-exporter:
         env:
           ZIGBEE2MQTT_WS: ws://127.0.0.1:8080/api
-        image: ghcr.io/tyriis/zigbee2mqtt-exporter:v0.2.6
+        image: ghcr.io/tyriis/zigbee2mqtt-exporter:v0.2.7
         ports:
           - containerPort: 3000
             name: http-prom
