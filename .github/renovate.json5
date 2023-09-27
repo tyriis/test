@@ -19,6 +19,7 @@
     "github>tyriis/renovate-config//terraform/default.json5",
     "github>tyriis/renovate-config//terraform/automerge-selected-major.json5",
     "github>tyriis/renovate-config//npm/default.json5",
+    "github>tyriis/renovate-config//npm/pnpm-dedupe.json5",
   ],
   semanticCommits: "enabled",
   suppressNotifications: ["prIgnoreNotification"],
