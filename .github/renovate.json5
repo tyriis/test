@@ -2,7 +2,7 @@
   // enabled: true,
   platform: "github",
   npm: {
-    enabled: false,
+    enabled: true,
   },
   extends: [
     "github>tyriis/renovate-config//kubernetes/disable-kubernetes-api.json5",
@@ -16,7 +16,6 @@
     "github>tyriis/renovate-config//helm/default.json5",
     "github>tyriis/renovate-config//helm/file-match.json5",
     "github>tyriis/renovate-config//helm/separate-versions.json5",
-    "github>tyriis/renovate-config//labels/semantic.json5",
     "github>tyriis/renovate-config//pre-commit/default.json5",
     "github>tyriis/renovate-config//github-actions/default.json5",
     "github>tyriis/renovate-config//github-actions/automerge-selected-major.json5",
