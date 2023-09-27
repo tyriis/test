@@ -1,11 +1,8 @@
 {
   // enabled: true,
   platform: "github",
-  npm: {
-    enabled: true,
-  },
   extends: [
-    "github>tyriis/renovate-config//kubernetes/disable-kubernetes-api.json5",
+    "github>tyriis/renovate-config//default.json5",
     "github>tyriis/renovate-config//dashboard/default.json5",
     // does not work for docker images
     // "github>tyriis/renovate-config//dashboard/vulnerability-summary.json5",
@@ -21,6 +18,7 @@
     "github>tyriis/renovate-config//github-actions/automerge-selected-major.json5",
     "github>tyriis/renovate-config//terraform/default.json5",
     "github>tyriis/renovate-config//terraform/automerge-selected-major.json5",
+    "github>tyriis/renovate-config//npm/default.json5",
   ],
   semanticCommits: "enabled",
   suppressNotifications: ["prIgnoreNotification"],
