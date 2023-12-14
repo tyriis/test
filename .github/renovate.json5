@@ -9,7 +9,7 @@
     "github>tyriis/renovate-config//docker/default.json5",
     "github>tyriis/renovate-config//flux/default.json5",
     "github>tyriis/renovate-config//flux/file-match.json5",
-    "github>tyriis/renovate-config//flux/preventautomerge-flux.json5",
+    "github>tyriis/renovate-config//flux/prevent-automerge-flux.json5",
     "github>tyriis/renovate-config//helm/default.json5",
     "github>tyriis/renovate-config//helm/file-match.json5",
     "github>tyriis/renovate-config//helm/separate-versions.json5",
