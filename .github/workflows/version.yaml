@@ -43,7 +43,7 @@
               git status --short
 
           - name: commit
-            uses: tyriis/multi-file-commit@b52ce9e1600e5fa0f42b33a69385fdc85cc37eec # v0.3.13
+            uses: tyriis/multi-file-commit@923a5965f42ba24546ff393c12aa3203b8b3855b # v0.3.14
             with:
               # The commit message for the commit.
               message: ${{ inputs.message }}
