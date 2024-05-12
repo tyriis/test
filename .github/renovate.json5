@@ -23,6 +23,7 @@
     "github>tyriis/renovate-config//npm/automerge.json5",
     "github>tyriis/renovate-config//npm/separate-versions.json5",
     "github>tyriis/renovate-config//npm/pnpm-dedupe.json5",
+    "github>tyriis/renovate-config//generic-regex-manager.json5",
   ],
   semanticCommits: "enabled",
   suppressNotifications: ["prIgnoreNotification"],
