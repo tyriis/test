@@ -1,0 +1,180 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/budimanjojo/talhelper/master/pkg/config/schemas/talconfig.json
+
+# renovate: depName=ghcr.io/siderolabs/installer datasource=docker
+talosVersion: v1.6.7
+# renovate: depName=ghcr.io/siderolabs/kubelet datasource=docker
+kubernetesVersion: v1.29.3
+
+clusterName: talos-flux
+endpoint: https://192.168.1.50:6443
+domain: cluster.local
+allowSchedulingOnMasters: true
+allowSchedulingOnControlPlanes: true
+cniConfig:
+  name: none
+
+nodes:
+  # i7-8650U / 32GB / SAMSUNG EVO 870 500GB SSD / WD BLUE SN550 500GB NVME
+  - hostname: talos01
+    ipAddress: 192.168.1.51
+    installDisk: /dev/sda
+    controlPlane: true
+    disableSearchDomain: true
+    nameservers:
+      - 1.1.1.1
+      - 8.8.8.8
+      - 192.168.1.1
+    networkInterfaces:
+      - interface: eth0
+        mtu: 0
+        dhcp: true
+        vip:
+          ip: 192.168.1.50
+
+  # i7-8650U / 32GB / SAMSUNG EVO 870 500GB SSD / WD BLUE SN570 500GB NVME
+  - hostname: talos02
+    ipAddress: 192.168.1.52
+    installDisk: /dev/sda
+    controlPlane: true
+    disableSearchDomain: true
+    nameservers:
+      - 1.1.1.1
+      - 8.8.8.8
+      - 192.168.1.1
+    networkInterfaces:
+      - interface: eth0
+        mtu: 0
+        dhcp: true
+        vip:
+          ip: 192.168.1.50
+
+  # i7-8650U / 32GB / SAMSUNG EVO 870 500GB SSD / WD BLUE SN550 500GB NVME
+  - hostname: talos03
+    ipAddress: 192.168.1.53
+    installDisk: /dev/sda
+    controlPlane: true
+    disableSearchDomain: true
+    nameservers:
+      - 1.1.1.1
+      - 8.8.8.8
+      - 192.168.1.1
+    networkInterfaces:
+      - interface: eth0
+        mtu: 0
+        dhcp: true
+        vip:
+          ip: 192.168.1.50
+
+  #  i7-10710U / 32GB / SAMSUNG EVO 860 500GB SSD
+  - hostname: talos04
+    ipAddress: 192.168.1.54
+    installDisk: /dev/sda
+    controlPlane: false
+    disableSearchDomain: true
+    nameservers:
+      - 1.1.1.1
+      - 8.8.8.8
+      - 192.168.1.1
+    networkInterfaces:
+      - interface: eth0
+        mtu: 0
+        dhcp: true
+    nodeLabels:
+      node-role.kubernetes.io/worker: ""
+
+controlPlane:
+  schematic:
+    customization:
+      extraKernelArgs:
+        - net.ifnames=0
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/intel-ucode
+          - siderolabs/i915-ucode
+  patches:
+    - |-
+      machine:
+        kubelet:
+          extraArgs:
+            rotate-server-certificates: "true"
+            feature-gates: GracefulNodeShutdown=true
+        files:
+          - op: create
+            path: /etc/cri/conf.d/20-customization.part
+            content: |
+              [plugins]
+                [plugins."io.containerd.grpc.v1.cri"]
+                  enable_unprivileged_ports = true
+                  enable_unprivileged_icmp = true
+        sysctls:
+          fs.inotify.max_user_instances: "8192"
+          fs.inotify.max_user_watches: "1048576"
+        time:
+          disabled: false
+          servers:
+            - 192.168.1.1
+            - time.cloudflare.com
+        registries:
+          mirrors:
+            docker.io:
+              endpoints:
+                - https://harbor.techtales.io/v2/proxy-docker.io
+              overridePath: true
+            ghcr.io:
+              endpoints:
+                - https://harbor.techtales.io/v2/proxy-ghcr.io
+              overridePath: true
+      cluster:
+        etcd:
+          extraArgs:
+            listen-metrics-urls: http://0.0.0.0:2381
+        controllerManager:
+          extraArgs:
+            bind-address: 0.0.0.0
+        scheduler:
+          extraArgs:
+            bind-address: 0.0.0.0
+
+worker:
+  schematic:
+    customization:
+      extraKernelArgs:
+        - net.ifnames=0
+      systemExtensions:
+        officialExtensions:
+          - siderolabs/intel-ucode
+          - siderolabs/i915-ucode
+  patches:
+    - |-
+      machine:
+        kubelet:
+          extraArgs:
+            rotate-server-certificates: "true"
+            feature-gates: GracefulNodeShutdown=true
+        files:
+          - op: create
+            path: /etc/cri/conf.d/20-customization.part
+            content: |
+              [plugins]
+                [plugins."io.containerd.grpc.v1.cri"]
+                  enable_unprivileged_ports = true
+                  enable_unprivileged_icmp = true
+        sysctls:
+          fs.inotify.max_user_instances: "8192"
+          fs.inotify.max_user_watches: "1048576"
+        time:
+          disabled: false
+          servers:
+            - 192.168.1.1
+            - time.cloudflare.com
+        registries:
+          mirrors:
+            docker.io:
+              endpoints:
+                - https://harbor.techtales.io/v2/proxy-docker.io
+              overridePath: true
+            ghcr.io:
+              endpoints:
+                - https://harbor.techtales.io/v2/proxy-ghcr.io
+              overridePath: true

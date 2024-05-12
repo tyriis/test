@@ -27,6 +27,15 @@
   semanticCommits: "enabled",
   suppressNotifications: ["prIgnoreNotification"],
   rebaseWhen: "conflicted",
-  regexManagers: [],
+  // regexManagers: [],
   packageRules: [],
+  ignorePaths: [
+    "^folder/**",
+    "^folder2/**",
+    "^kubernetes/**", // disable for now
+    "^kubernetes/talos-flux/apps/home-automation/esphome/app/config/**",
+  ],
+  npm: {
+    enabled: false, // disable for now
+  },
 }
