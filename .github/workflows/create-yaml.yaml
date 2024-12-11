@@ -104,6 +104,8 @@ jobs:
       - name: create branch
         if: steps.check-user.outcome == 'success' && steps.check-label.outcome == 'success'  && ${{steps.branch-exists.outputs.branch-exists == 'false'}}
         uses: peterjgrainger/action-create-branch@v3.0.0
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
         with:
           branch: "repo/${{ steps.create-yaml.outputs.repo-name }}"
           sha: ${{ github.sha }}
