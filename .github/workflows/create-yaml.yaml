@@ -34,7 +34,7 @@ jobs:
       - name: Check for user
         run: |
           echo $(jq '.issue.user.login' $GITHUB_EVENT_PATH)
-          if [[ $(jq '.issue.user.login' $GITHUB_EVENT_PATH) == "tyriis" ]]; then
+          if [[ $(jq '.issue.user.login' $GITHUB_EVENT_PATH) == '"tyriis"' ]]; then
             echo "User found"
           else
             echo "User not found"
