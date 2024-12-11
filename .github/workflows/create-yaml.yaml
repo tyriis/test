@@ -117,24 +117,17 @@ jobs:
 
       - name: commit files
         if: steps.check-user.outcome == 'success' && steps.check-label.outcome == 'success'
-        id: create-pr
+        id: commit-files
         uses: tyriis/multi-file-commit@v0.3.14
         with:
-          message: "Create YAML for ${{ steps.create-yaml.outputs.repo-name }}"
+          message: "Create YAML for ${{ steps.create-yaml.outputs.repo-name }} closes #${{ github.event.issue.number }}"
           ref: "repo/${{ steps.create-yaml.outputs.repo-name }}"
           files: |
             data/repositories/${{ steps.create-yaml.outputs.repo-name }}.yaml
 
-      - name: link commit
-        if: steps.check-user.outcome == 'success' && steps.check-label.outcome == 'success'
-        env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          echo "commit-url=${{ steps.create-pr.outputs.sha }}" >> $GITHUB_OUTPUT
-          gh issue comment ${{ github.event.issue.number }} --body "YAML created in commit ${{ steps.create-pr.outputs.sha }}"
-
       # https://github.com/marketplace/actions/pull-request-action
       - name: create pr
+        id: create-pr
         if: steps.check-user.outcome == 'success' && steps.check-label.outcome == 'success'
         uses: vsoch/pull-request-action@882391869b75196e039a732df05085312c456995 # 1.1.1
         env:
@@ -144,3 +137,10 @@ jobs:
           PULL_REQUEST_TITLE: "new repo: ${{ steps.create-yaml.outputs.repo-name }}"
           PULL_REQUEST_BODY: "automated PR for new repo"
           PULL_REQUEST_UPDATE: "true"
+
+      - name: link pr to issue
+        if: steps.check-user.outcome == 'success' && steps.check-label.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --body "${{ steps.create-pr.outputs.pull_request_url }}"
