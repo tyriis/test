@@ -92,6 +92,8 @@ jobs:
 
           cat "data/repositories/${REPO_NAME}.yaml"
 
+          git add data/repositories/${REPO_NAME}.yaml
+
       - name: branch exists
         if: steps.check-user.outcome == 'success' && steps.check-label.outcome == 'success'
         id: branch-exists
