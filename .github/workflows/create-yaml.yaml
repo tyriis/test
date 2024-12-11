@@ -49,3 +49,19 @@ jobs:
             echo "Closing issue"
             gh issue close ${{ github.event.issue.number }} --comment "$USER is not allowed to create YAML"
           fi
+
+      - name: Create YAML files
+        if: steps.check-user.outcome == 'success' && steps.check-label.outcome == 'success'
+        id: create-yaml
+        # parse data from the issue body
+        run: |
+          ISSUE_BODY=$(jq -r '.issue.body' $GITHUB_EVENT_PATH)
+
+
+      # - name: multi-file-commit
+      #   uses: tyriis/multi-file-commit@v0.3.14
+      #   with:
+      #     ref: test/create-yaml
+      #     message: "Create YAML files"
+
+

@@ -2,7 +2,7 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-issue-forms.json
 name: New Repo Request
 description: Request to create a new repository in github
-title: "[New Repository] add {{ name }}"
+title: "[New Repository]: "
 labels:
   - repo-request
 assignees: tyriis
@@ -11,9 +11,32 @@ assignees: tyriis
 body:
   - type: input
     id: name
-    validations:
-      required: true
     attributes:
       label: Name of the repository
       description: Enter the name of the repository
       placeholder: my-new-repo
+    validations:
+      required: true
+  - type: input
+    id: description
+    attributes:
+      label: Description of the repository
+      description: Enter the description of the repository
+      placeholder: This is a new repository
+    validations:
+      required: true
+  - type: dropdown
+    id: visibility
+    attributes:
+      label: Visibility of the repository
+      description: Select the visibility of the repository
+      options:
+        - public
+        - private
+      default: 0
+  - type: input
+    id: topics
+    attributes:
+      label: Topics for the repository
+      description: Enter the topics for the repository
+      placeholder: topic1, topic2
