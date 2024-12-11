@@ -23,5 +23,5 @@ jobs:
 
       - name: Create YAML file
         run: |
-          echo "name: ${{ github.event.issue.body.name }}"
+          echo "name: ${{ github.event.issue.body }}"
           echo "data/${{ github.event.issue.number }}.yaml"
