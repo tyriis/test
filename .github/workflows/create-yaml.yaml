@@ -78,7 +78,7 @@ jobs:
             namespace: tyriis
             description: ${REPO_DESC}
             topics:
-              - $(echo $REPO_TOPICS | sed 's/, /\n        - /g')
+              - $(echo $REPO_TOPICS | sed 's/, /\n    - /g')
           spec:
             visibility: ${REPO_VIS}
             defaultLabels: true
@@ -89,3 +89,12 @@ jobs:
           echo "repo-name=${REPO_NAME}" >> $GITHUB_OUTPUT
 
           cat "data/repositories/${REPO_NAME}.yaml"
+
+      - name: commit files
+        if: steps.check-user.outcome == 'success' && steps.check-label.outcome == 'success'
+        id: create-pr
+        uses: tyriis/multi-file-commit@v0.3.14
+        with:
+          message: "Create YAML for ${{ steps.create-yaml.outputs.repo-name }}"
+          ref: "repo/${{ steps.create-yaml.outputs.repo-name }}"
+
