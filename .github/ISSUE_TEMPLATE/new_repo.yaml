@@ -11,6 +11,8 @@ assignees: tyriis
 body:
   - type: input
     id: name
+    validations:
+      required: true
     attributes:
       label: Name of the repository
       description: Enter the name of the repository

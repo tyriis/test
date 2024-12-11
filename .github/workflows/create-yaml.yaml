@@ -1,0 +1,27 @@
+---
+# yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
+name: Create YAML and PR
+
+on:
+  issues:
+    types: [opened]
+
+jobs:
+  create-yaml-and-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check for label
+        run: |
+          if [[ $(jq '.issue.labels[].name' $GITHUB_EVENT_PATH) == *"repo-request"* ]]; then
+            echo "Label found"
+          else
+            echo "Label not found"
+            exit 1
+          fi
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Create YAML file
+        run: |
+          echo "name: ${{ github.event.issue.body.name }}"
+          echo "data/${{ github.event.issue.number }}.yaml"
