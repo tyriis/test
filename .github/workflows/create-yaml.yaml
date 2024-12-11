@@ -18,10 +18,28 @@ jobs:
             echo "Label not found"
             exit 1
           fi
+      # run only if the issue creator is tyriis or jazzlyn
+      # - name: Check for user
+      #   run: |
+      #     if [[ $(jq '.issue.user.login' $GITHUB_EVENT_PATH) == "tyriis" || $(jq '.issue.user.login' $GITHUB_EVENT_PATH) == "jazzlyn" ]]; then
+      #       echo "User found"
+      #     else
+      #       echo "User not found"
+      #       exit 1
+      #     fi
+      - name: Check for user
+        run: |
+          if [[ $(jq '.issue.user.login' $GITHUB_EVENT_PATH) == "tyriis" ]]; then
+            echo "User found"
+          else
+            echo "User not found"
+            exit 1
+          fi
+
       - name: Checkout repository
         uses: actions/checkout@v2
 
       - name: Create YAML file
         run: |
-          echo "name: ${{ github.event.issue.body }}"
+          echo "${{ github.event.issue.body }}" | tail -n 1 | xargs echo -n
           echo "data/${{ github.event.issue.number }}.yaml"
