@@ -1,0 +1,16 @@
+apiVersion: tyriis.dev/v1alpha1
+kind: GithubRepository
+metadata:
+  name: test7
+  namespace: tyriis
+  description: test7
+  topics:
+    - test
+    - test1
+    - test2
+    - test3
+spec:
+  visibility: public
+  defaultLabels: true
+  labelNamespaces:
+    - rennovate-default
