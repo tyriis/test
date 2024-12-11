@@ -73,6 +73,7 @@ jobs:
           # Create repository YAML
           mkdir -p data/repositories
           cat > "data/repositories/${REPO_NAME}.yaml" << EOF
+          ---
           apiVersion: tyriis.dev/v1alpha1
           kind: GithubRepository
           metadata:
@@ -86,6 +87,7 @@ jobs:
             defaultLabels: true
             labelNamespaces:
               - rennovate-default
+
           EOF
 
           echo "repo-name=${REPO_NAME}" >> $GITHUB_OUTPUT
