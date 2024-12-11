@@ -48,6 +48,8 @@ jobs:
           if [[ $(jq '.issue.labels[].name' $GITHUB_EVENT_PATH) == *"repo-request"* ]]; then
             echo "Closing issue"
             gh issue close ${{ github.event.issue.number }} --comment "$USER is not allowed to create YAML"
+          else
+            gh issue comment ${{ github.event.issue.number }} --body "$USER is allowed to create YAML"
           fi
 
       - name: Create YAML files
@@ -118,3 +120,11 @@ jobs:
         with:
           message: "Create YAML for ${{ steps.create-yaml.outputs.repo-name }}"
           ref: "repo/${{ steps.create-yaml.outputs.repo-name }}"
+          files: |
+            data/repositories/${{ steps.create-yaml.outputs.repo-name }}.yaml
+
+      - name: link commit
+        if: steps.check-user.outcome == 'success' && steps.check-label.outcome == 'success'
+        run: |
+          echo "commit-url=${{ steps.create-pr.outputs.sha }}" >> $GITHUB_OUTPUT
+          gh issue comment ${{ github.event.issue.number }} --body "YAML created in commit ${{ steps.create-pr.outputs.sha }}"
