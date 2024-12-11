@@ -90,6 +90,25 @@ jobs:
 
           cat "data/repositories/${REPO_NAME}.yaml"
 
+      - name: branch exists
+        if: steps.check-user.outcome == 'success' && steps.check-label.outcome == 'success'
+        id: branch-exists
+        run: |
+          if [[ -n $(git ls-remote --heads origin repo/${{ steps.create-yaml.outputs.repo-name }}) ]]; then
+            echo "branch-exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "branch-exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+
+      - name: create branch
+        if: steps.check-user.outcome == 'success' && steps.check-label.outcome == 'success'  && ${{steps.branch-exists.outputs.branch-exists == 'false'}}
+        uses: peterjgrainger/action-create-branch@v3.0.0
+        with:
+          branch: "repo/${{ steps.create-yaml.outputs.repo-name }}"
+          sha: ${{ github.sha }}
+
+
       - name: commit files
         if: steps.check-user.outcome == 'success' && steps.check-label.outcome == 'success'
         id: create-pr
@@ -97,4 +116,3 @@ jobs:
         with:
           message: "Create YAML for ${{ steps.create-yaml.outputs.repo-name }}"
           ref: "repo/${{ steps.create-yaml.outputs.repo-name }}"
-
