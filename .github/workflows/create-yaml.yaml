@@ -12,34 +12,40 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Test Check for label
+        id: check-label
+        continue-on-error: true
         run: |
           if [[ $(jq '.issue.labels[].name' $GITHUB_EVENT_PATH) == *"repo-request"* ]]; then
             echo "Label found"
+            echo "label-check=true" >> $GITHUB_OUTPUT
           else
             echo "Label not found"
-            exit 1
+            echo "label-check=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Test Check for user
+        id: check-user
+        continue-on-error: true
         run: |
           USER=$(jq '.issue.user.login' $GITHUB_EVENT_PATH)
           if [[ $USER == '"tyriis"' ]]; then
             echo "$USER is allowed to create YAML"
+            echo "user-check=true" >> $GITHUB_OUTPUT
           else
             echo "$USER is not allowed to create YAML"
-            exit 1
+            echo "user-check=false" >> $GITHUB_OUTPUT
           fi
 
       - name: Close issue on failure
-        if: failure()
+        if: steps.check-user.outcome == 'failure' && steps.check-label.outcome == 'success'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
+          USER=$(jq '.issue.user.login' $GITHUB_EVENT_PATH)
           if [[ $(jq '.issue.labels[].name' $GITHUB_EVENT_PATH) == *"repo-request"* ]]; then
             echo "Closing issue"
-            gh issue close ${{ github.event.issue.number }}
-            exit 1
+            gh issue close ${{ github.event.issue.number }} --comment "$USER is not allowed to create YAML"
           fi
