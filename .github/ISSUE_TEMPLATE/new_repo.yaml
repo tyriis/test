@@ -2,7 +2,7 @@
 # yaml-language-server: $schema=https://json.schemastore.org/github-issue-forms.json
 name: New Repo Request
 description: Request to create a new repository in github
-title: "[New Repository] Add email for {{ name }}"
+title: "[New Repository] add {{ name }}"
 labels:
   - repo-request
 assignees: tyriis
@@ -14,4 +14,4 @@ body:
     attributes:
       label: Name of the repository
       description: Enter the name of the repository
-      placeholder: some-repo
+      placeholder: my-new-repo
