@@ -127,6 +127,20 @@ jobs:
 
       - name: link commit
         if: steps.check-user.outcome == 'success' && steps.check-label.outcome == 'success'
+        env:
+          GH_TOKEN: ${{ github.token }}
         run: |
           echo "commit-url=${{ steps.create-pr.outputs.sha }}" >> $GITHUB_OUTPUT
           gh issue comment ${{ github.event.issue.number }} --body "YAML created in commit ${{ steps.create-pr.outputs.sha }}"
+
+      # https://github.com/marketplace/actions/pull-request-action
+      - name: create pr
+        if: steps.check-user.outcome == 'success' && steps.check-label.outcome == 'success'
+        uses: vsoch/pull-request-action@882391869b75196e039a732df05085312c456995 # 1.1.1
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+          PULL_REQUEST_BRANCH: main
+          PULL_REQUEST_FROM_BRANCH: repo/${{ steps.create-yaml.outputs.repo-name }}
+          PULL_REQUEST_TITLE: "new repo: ${{ steps.create-yaml.outputs.repo-name }}"
+          PULL_REQUEST_BODY: "automated PR for new repo"
+          PULL_REQUEST_UPDATE: "true"
