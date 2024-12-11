@@ -1,16 +1,20 @@
 ---
 # yaml-language-server: $schema=https://json.schemastore.org/github-workflow.json
-name: Create YAML and PR
+name: Test Create YAML and PR Workflow
 
 on:
   issues:
-    types: [opened]
+    types:
+      - opened
 
 jobs:
-  create-yaml-and-pr:
+  test-create-yaml-and-pr:
     runs-on: ubuntu-latest
     steps:
-      - name: Check for label
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Test Check for label
         run: |
           if [[ $(jq '.issue.labels[].name' $GITHUB_EVENT_PATH) == *"repo-request"* ]]; then
             echo "Label found"
@@ -18,33 +22,22 @@ jobs:
             echo "Label not found"
             exit 1
           fi
-      # run only if the issue creator is tyriis or jazzlyn
-      # - name: Check for user
-      #   run: |
-      #     if [[ $(jq '.issue.user.login' $GITHUB_EVENT_PATH) == "tyriis" || $(jq '.issue.user.login' $GITHUB_EVENT_PATH) == "jazzlyn" ]]; then
-      #       echo "User found"
-      #     else
-      #       echo "User not found"
-      #       exit 1
-      #     fi
-      # json stringify github.event.issue data and echo i
-      - name: Print issue data
+
+      - name: Test Check for user
         run: |
-          cat $GITHUB_EVENT_PATH
-      - name: Check for user
-        run: |
-          echo $(jq '.issue.user.login' $GITHUB_EVENT_PATH)
-          if [[ $(jq '.issue.user.login' $GITHUB_EVENT_PATH) == '"tyriis"' ]]; then
-            echo "User found"
+          USER=$(jq '.issue.user.login' $GITHUB_EVENT_PATH)
+          if [[ $USER == '"tyriis"' ]]; then
+            echo "$USER is allowed to create YAML"
           else
-            echo "User not found"
+            echo "$USER is not allowed to create YAML"
             exit 1
           fi
 
-      - name: Checkout repository
-        uses: actions/checkout@v2
-
-      - name: Create YAML file
+      - name: Close issue on failure
+        if: failure()
         run: |
-          echo "${{ github.event.issue.body }}" | tail -n 1 | xargs echo -n
-          echo "data/${{ github.event.issue.number }}.yaml"
+          if [[ $(jq '.issue.labels[].name' $GITHUB_EVENT_PATH) == *"repo-request"* ]]; then
+            echo "Closing issue"
+            gh issue close ${{ github.event.issue.number }}
+            exit 1
+          fi
