@@ -53,15 +53,40 @@ jobs:
       - name: Create YAML files
         if: steps.check-user.outcome == 'success' && steps.check-label.outcome == 'success'
         id: create-yaml
-        # parse data from the issue body
         run: |
-          ISSUE_BODY=$(jq -r '.issue.body' $GITHUB_EVENT_PATH)
+          # Extract data from issue body
+          BODY=$(jq -r '.issue.body' $GITHUB_EVENT_PATH)
 
+          # Parse repository details
+          REPO_NAME=$(echo "$BODY" | sed -n '/### Name of the repository/,/^$/p' | tail -n +3 | head -n 1)
+          REPO_DESC=$(echo "$BODY" | sed -n '/### Description of the repository/,/^$/p' | tail -n +3 | head -n 1)
+          REPO_VIS=$(echo "$BODY" | sed -n '/### Visibility of the repository/,/^$/p' | tail -n +3 | head -n 1)
+          REPO_TOPICS=$(echo "$BODY" | sed -n '/### Topics for the repository/,/^$/p' | tail -n +3 | head -n 1)
 
-      # - name: multi-file-commit
-      #   uses: tyriis/multi-file-commit@v0.3.14
-      #   with:
-      #     ref: test/create-yaml
-      #     message: "Create YAML files"
+          # Validate required fields
+          if [ -z "$REPO_NAME" ] || [ -z "$REPO_VIS" ]; then
+            echo "Error: Missing required fields"
+            exit 1
+          fi
 
+          # Create repository YAML
+          mkdir -p data/repositories
+          cat > "data/repositories/${REPO_NAME}.yaml" << EOF
+          apiVersion: tyriis.dev/v1alpha1
+          kind: GithubRepository
+          metadata:
+            name: ${REPO_NAME}
+            namespace: tyriis
+            description: ${REPO_DESC}
+            topics:
+              - $(echo $REPO_TOPICS | sed 's/, /\n        - /g')
+          spec:
+            visibility: ${REPO_VIS}
+            defaultLabels: true
+            labelNamespaces:
+              - rennovate-default
+          EOF
 
+          echo "repo-name=${REPO_NAME}" >> $GITHUB_OUTPUT
+
+          cat "data/repositories/${REPO_NAME}.yaml"
