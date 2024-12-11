@@ -27,10 +27,13 @@ jobs:
       #       echo "User not found"
       #       exit 1
       #     fi
+      # json stringify github.event.issue data and echo it
+      - name: Print issue data
+        run: |
+          echo "${{ github.event.issue }}"
       - name: Check for user
         run: |
-          echo $(jq '.issue.user.login')
-          echo $GITHUB_EVENT_PATH
+          echo $(jq '.issue.user' $GITHUB_EVENT_PATH)
           if [[ $(jq '.issue.user.login' $GITHUB_EVENT_PATH) == "tyriis" ]]; then
             echo "User found"
           else
