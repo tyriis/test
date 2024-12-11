@@ -57,11 +57,10 @@ jobs:
           # Extract data from issue body
           BODY=$(jq -r '.issue.body' $GITHUB_EVENT_PATH)
 
-          # Parse repository details
-          REPO_NAME=$(echo "$BODY" | sed -n '/### Name of the repository/,/^$/p' | tail -n +3 | head -n 1)
-          REPO_DESC=$(echo "$BODY" | sed -n '/### Description of the repository/,/^$/p' | tail -n +3 | head -n 1)
-          REPO_VIS=$(echo "$BODY" | sed -n '/### Visibility of the repository/,/^$/p' | tail -n +3 | head -n 1)
-          REPO_TOPICS=$(echo "$BODY" | sed -n '/### Topics for the repository/,/^$/p' | tail -n +3 | head -n 1)
+          REPO_NAME=$(echo "$BODY" | sed -n '/### Name of the repository/{n;n;p}')
+          REPO_DESC=$(echo "$BODY" | sed -n '/### Description of the repository/{n;n;p}')
+          REPO_VIS=$(echo "$BODY" | sed -n '/### Visibility of the repository/{n;n;p}')
+          REPO_TOPICS=$(echo "$BODY" | sed -n '/### Topics for the repository/{n;n;p}')
 
           # Validate required fields
           if [ -z "$REPO_NAME" ] || [ -z "$REPO_VIS" ]; then
