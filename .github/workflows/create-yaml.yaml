@@ -109,7 +109,7 @@ jobs:
 
       - name: create branch
         if: steps.check-user.outcome == 'success' && steps.check-label.outcome == 'success'  && ${{steps.branch-exists.outputs.branch-exists == 'false'}}
-        uses: peterjgrainger/action-create-branch@v3.0.0
+        uses: peterjgrainger/action-create-branch@10c7d268152480ae859347db45dc69086cef1d9c # v3.0.0
         env:
           GITHUB_TOKEN: ${{ github.token }}
         with:
@@ -120,7 +120,7 @@ jobs:
       - name: commit files
         if: steps.check-user.outcome == 'success' && steps.check-label.outcome == 'success'
         id: commit-files
-        uses: tyriis/multi-file-commit@v0.3.14
+        uses: tyriis/multi-file-commit@923a5965f42ba24546ff393c12aa3203b8b3855b # v0.3.14
         with:
           message: "Create YAML for ${{ steps.create-yaml.outputs.repo-name }} closes #${{ github.event.issue.number }}"
           ref: "repo/${{ steps.create-yaml.outputs.repo-name }}"
