@@ -36,6 +36,9 @@
     "^kubernetes/**", // disable for now
     "^kubernetes/talos-flux/apps/home-automation/esphome/app/config/**",
   ],
+  includePaths: [
+    "terraform/images.yaml",
+  ],
   npm: {
     enabled: false, // disable for now
   },
