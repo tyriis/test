@@ -42,4 +42,11 @@
   npm: {
     enabled: false, // disable for now
   },
+  {
+    customType: "regex",
+    description: "rolling with sha 1 line",
+    fileMatch: ["terraform/images.yaml"],
+    matchStrings: ["(?<something>[^\\s:]+): (?<depName>[^\\s:]+):(?<currentValue>\\S+)(@(?<currentDigest>sha256:\\S+)?)"],
+    datasourceTemplate: "docker",
+  },
 }
