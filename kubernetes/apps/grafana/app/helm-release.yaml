@@ -84,7 +84,7 @@ spec:
         # Ref: https://grafana.com/grafana/dashboards/20842
 
         cert-manager:
-          # renovate: depName="Cert-manager-Kubernetes"
+          # renovate: dashboardName="Cert-manager-Kubernetes"
           gnetId: 20842
           revision: 2
           datasource: Prometheus
@@ -104,7 +104,7 @@ spec:
           datasource: Prometheus
 
         smartctl-exporter:
-          # renovate: depName="SMARTctl Exporter Dashboard"
+          # renovate: dashboardName="SMARTctl Exporter Dashboard"
           gnetId: 22604
           revision: 1
           datasource:
