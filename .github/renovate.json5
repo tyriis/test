@@ -43,14 +43,14 @@
       defaultRegistryUrlTemplate: "https://metadata.luckperms.net/data/all",
       format: "json",
       transformTemplates: [
-        '{ "releases": [ { "version": version } ], "homepage": "https://luckperms.net/", "sourceUrl": downloads.bukkit, "url": downloads.bukkit }',
+        '{ "releases": [ { "version": version } ], "homepage": "https://luckperms.net/", "sourceUrl": "https://github.com/LuckPerms/LuckPerms", "url": downloads.bukkit }',
       ],
     },
     "luckperms-velocity": {
       defaultRegistryUrlTemplate: "https://metadata.luckperms.net/data/all",
       format: "json",
       transformTemplates: [
-        '{ "releases": [ { "version": version } ], "homepage": "https://luckperms.net/", "sourceUrl": downloads.velocity, "url": downloads.velocity }',
+        '{ "releases": [ { "version": version } ], "homepage": "https://luckperms.net/", "sourceUrl": "https://github.com/LuckPerms/LuckPerms", "url": downloads.velocity }',
       ],
     },
   },
