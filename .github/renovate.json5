@@ -28,7 +28,7 @@
   customManagers: [
     {
       customType: "regex",
-      managerFilePatterns: ["^(kubernetes)/.+/plugins\\.txt$"],
+      managerFilePatterns: ["^kubernetes/.+/plugins\\.txt$"],
       //managerFilePatterns: [
       //  "/^kubernetes/apps/gaming/minecraft-java/.*/config/plugins\\.txt$/",
       //],
