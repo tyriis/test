@@ -33,7 +33,7 @@
         "(?<currentDigest>https://download\\.luckperms\\.net/\\d+/(?<type>bukkit|velocity).*/LuckPerms-(<?typeCaps>Bukkit|Velocity)-(?<currentValue>[\\d.]+)\\.jar)",
         "(?<currentDigest>https://download\\.luckperms\\.net/\\d+/(?<type>bukkit)/loader/LuckPerms-Bukkit-(?<currentValue>[\\d.]+)\\.jar)",
       ],
-      datasourceTemplate: "custom.luckpermsBukkit",
+      datasourceTemplate: "custom.luckperms-{{type}}",
       depNameTemplate: "luckperms-{{type}}",
       autoReplaceStringTemplate: "{{{newDigest}}}",
     },
@@ -49,20 +49,20 @@
     // },
   ],
   customDatasources: {
-    luckpermsBukkit: {
+    "luckperms-bukkit": {
       defaultRegistryUrlTemplate: "https://metadata.luckperms.net/data/all",
       format: "json",
       transformTemplates: [
-        '{ "releases": [ { "version": "{{version}}", "digest": downloads.bukkit, "url": "https://luckperms.net/" } ] }',
+        '{ "releases": [ { "version": version, "digest": downloads.bukkit, "url": "https://luckperms.net/" } ] }',
       ],
     },
-    // luckpermsVelocity: {
-    //   defaultRegistryUrlTemplate: "https://metadata.luckperms.net/data/all",
-    //   format: "json",
-    //   transformTemplates: [
-    //     '{ "releases": [ { "version": version, "digest": downloads.velocity, "url": "https://luckperms.net/" } ] }',
-    //   ],
-    // },
+    "luckperms-velocity": {
+      defaultRegistryUrlTemplate: "https://metadata.luckperms.net/data/all",
+      format: "json",
+      transformTemplates: [
+        '{ "releases": [ { "version": version, "digest": downloads.velocity, "url": "https://luckperms.net/" } ] }',
+      ],
+    },
   },
   jenkins: {
     enabled: false,
