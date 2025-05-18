@@ -20,7 +20,7 @@
   },
   packageRules: [
     {
-      matchDatasources: ["custom.luckpermsBukkit", "custom.luckpermsVelocity"],
+      matchDatasources: ["custom.luckperms-bukkit", "custom.luckperms-velocity"],
       semanticCommitScope: "minecraft",
       commitMessageTopic: "plugin {{depName}}",
     },
@@ -30,23 +30,13 @@
       customType: "regex",
       managerFilePatterns: ["/^kubernetes/.+/plugins\\.txt$/"],
       matchStrings: [
-        "(?<currentDigest>https://download\\.luckperms\\.net/\\d+/(?<type>bukkit|velocity).*/LuckPerms-(<?typeCaps>Bukkit|Velocity)-(?<currentValue>[\\d.]+)\\.jar)",
+        "(?<currentDigest>https://download\\.luckperms\\.net/\\d+/(?<type>velocity)/LuckPerms-Velocity-(?<currentValue>[\\d.]+)\\.jar)",
         "(?<currentDigest>https://download\\.luckperms\\.net/\\d+/(?<type>bukkit)/loader/LuckPerms-Bukkit-(?<currentValue>[\\d.]+)\\.jar)",
       ],
       datasourceTemplate: "custom.luckperms-{{type}}",
-      depNameTemplate: "luckperms-{{type}}",
+      depNameTemplate: "luckperms",
       autoReplaceStringTemplate: "{{{newDigest}}}",
     },
-    // {
-    //   customType: "regex",
-    //   managerFilePatterns: ["^(kubernetes)/.+/plugins\\.txt$"],
-    //   matchStrings: [
-    //     "(?<currentDigest>https://download\\.luckperms\\.net/\\d+/velocity/LuckPerms-Velocity-(?<currentValue>[\\d.]+)\\.jar)",
-    //   ],
-    //   datasourceTemplate: "custom.luckpermsVelocity",
-    //   depNameTemplate: "luckperms-velocity",
-    //   autoReplaceStringTemplate: "{{{newDigest}}}",
-    // },
   ],
   customDatasources: {
     "luckperms-bukkit": {
