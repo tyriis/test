@@ -22,7 +22,7 @@
     {
       matchDatasources: ["custom.luckpermsBukkit", "custom.luckpermsVelocity"],
       semanticCommitScope: "minecraft",
-      commitMessageTopic: "update plugin {{depName}}",
+      commitMessageTopic: "plugin {{depName}}",
     },
   ],
   customManagers: [
@@ -36,32 +36,32 @@
       depNameTemplate: "luckperms-{{type}}",
       autoReplaceStringTemplate: "{{{newDigest}}}",
     },
-    {
-      customType: "regex",
-      managerFilePatterns: ["^(kubernetes)/.+/plugins\\.txt$"],
-      matchStrings: [
-        "(?<currentDigest>https://download\\.luckperms\\.net/\\d+/velocity/LuckPerms-Velocity-(?<currentValue>[\\d.]+)\\.jar)",
-      ],
-      datasourceTemplate: "custom.luckpermsVelocity",
-      depNameTemplate: "luckperms-velocity",
-      autoReplaceStringTemplate: "{{{newDigest}}}",
-    },
+    // {
+    //   customType: "regex",
+    //   managerFilePatterns: ["^(kubernetes)/.+/plugins\\.txt$"],
+    //   matchStrings: [
+    //     "(?<currentDigest>https://download\\.luckperms\\.net/\\d+/velocity/LuckPerms-Velocity-(?<currentValue>[\\d.]+)\\.jar)",
+    //   ],
+    //   datasourceTemplate: "custom.luckpermsVelocity",
+    //   depNameTemplate: "luckperms-velocity",
+    //   autoReplaceStringTemplate: "{{{newDigest}}}",
+    // },
   ],
   customDatasources: {
     luckpermsBukkit: {
       defaultRegistryUrlTemplate: "https://metadata.luckperms.net/data/all",
       format: "json",
       transformTemplates: [
-        '{ "releases": [ { "version": version, "digest": downloads.bukkit } ] }',
+        '{ "releases": [ { "version": version, "digest": downloads.bukkit, "url": "https://luckperms.net/" } ] }',
       ],
     },
-    luckpermsVelocity: {
-      defaultRegistryUrlTemplate: "https://metadata.luckperms.net/data/all",
-      format: "json",
-      transformTemplates: [
-        '{ "releases": [ { "version": version, "digest": downloads.velocity, "url": "https://luckperms.net/" } ] }',
-      ],
-    },
+    // luckpermsVelocity: {
+    //   defaultRegistryUrlTemplate: "https://metadata.luckperms.net/data/all",
+    //   format: "json",
+    //   transformTemplates: [
+    //     '{ "releases": [ { "version": version, "digest": downloads.velocity, "url": "https://luckperms.net/" } ] }',
+    //   ],
+    // },
   },
   jenkins: {
     enabled: false,
