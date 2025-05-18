@@ -1,44 +1,100 @@
 {
-  // enabled: true,
-  platform: "github",
+  enabled: true,
   extends: [
-    "config:best-practices",
-    "github>tyriis/renovate-config//dashboard/default.json5",
-    "github>tyriis/renovate-config//flux-infra.json5",
-    "github>tyriis/renovate-config//flux/prevent-automerge-flux.json5",
-    "github>tyriis/renovate-config//labels/semantic.json5",
-    "github>tyriis/renovate-config//helm/groups/rook-ceph.json5",
-    "github>tyriis/renovate-config//helm/groups/gha-runner-scale-set.json5",
-    "github>tyriis/renovate-config//flux/groups/flux.json5",
-    "github>tyriis/renovate-config//generic-regex-manager.json5",
-    "github>tyriis/renovate-config//docker/prevent-automerge-talos.json5",
-    "github>tyriis/renovate-config//nix/default.json5",
-    "github>tyriis/renovate-config//grafana-dashboards.json5",
-    "security:openssf-scorecard",
+    "github>techtales-io/renovate-config:base.json5",
+    "github>techtales-io/renovate-config:flux-infra.json5",
+    "github>techtales-io/renovate-config:terraform-infra.json5",
+    "github>techtales-io/renovate-config//dependencies/cloudnative-pg.json5",
+    "github>techtales-io/renovate-config//dependencies/dragonfly.json5",
+    "github>techtales-io/renovate-config//dependencies/fluxcd.json5",
+    "github>techtales-io/renovate-config//dependencies/github-runners.json5",
+    "github>techtales-io/renovate-config//dependencies/google-cloud-sdk.json5",
+    "github>techtales-io/renovate-config//dependencies/grafana-dashboards.json5",
+    "github>techtales-io/renovate-config//dependencies/minecraft.json5",
+    "github>techtales-io/renovate-config//dependencies/minio.json5",
+    "github>techtales-io/renovate-config//dependencies/rook-ceph.json5",
+    "github>techtales-io/renovate-config//dependencies/talos.json5",
+    "github>techtales-io/renovate-config//dependencies/tektoncd.json5",
+    "github>techtales-io/renovate-config//nix/default.json5",
+    "github>tyriis/renovate-config//generic-regex-manager.json5", //  TODO: reconfigure
   ],
-  semanticCommits: "enabled",
-  suppressNotifications: ["prIgnoreNotification"],
-  rebaseWhen: "conflicted",
-  // regexManagers: [],
-  packageRules: [],
   ignorePaths: [
-    "^folder/**",
-    "^folder2/**",
+    "archive/**",
+    "kubernetes/talos-flux/apps/home-automation/esphome/app/config/**",
+    "kubernetes/talos-flux/apps/default/homepage/app/config/**",
+    "kubernetes/talos-flux/apps/system-upgrade/system-upgrade-controller/plans/kubernetes.yaml",
+    "kubernetes/talos-flux/apps/system-upgrade/system-upgrade-controller/plans/talos.yaml",
   ],
   includePaths: [
     // "terraform/images.yaml",
-    "kubernetes/**",
+    "kubernetes/apps/gaming/minecraft-java/**",
   ],
-  npm: {
-    enabled: false, // disable for now
+  rebaseWhen: "conflicted",
+  ansible: {
+    enabled: false,
   },
+  lockFileMaintenance: {
+    enabled: true,
+    extends: ["schedule:weekly"],
+    automerge: true,
+  },
+  vulnerabilityAlerts: {
+    enabled: false,
+  },
+  packageRules: [
+    {
+      description: "do not automerge minio",
+      matchDepNames: ["quay.io/minio/minio"],
+      matchUpdateTypes: ["patch", "minor", "major"],
+      automerge: false,
+    },
+    {
+      matchDatasources: ["custom.luckpermsBukkit", "custom.luckpermsVelocity"],
+      semanticCommitScope: "minecraft",
+      commitMessageTopic: "update plugin {{depName}}",
+    },
+  ],
   customManagers: [
     {
       customType: "regex",
-      description: "rolling with sha 1 line",
-      fileMatch: ["terraform/images.yaml"],
-      matchStrings: ["(?<something>[^\\s:]+): (?<depName>[^\\s:]+):(?<currentValue>\\S+)(@(?<currentDigest>sha256:\\S+)?)"],
-      datasourceTemplate: "docker",
+      managerFilePatterns: [
+        "/^kubernetes/talos-flux/apps/gaming/minecraft-java/.*/config/plugins\\.txt$/",
+      ],
+      matchStrings: [
+        "(?<currentDigest>https://download\\.luckperms\\.net/\\d+/bukkit/loader/LuckPerms-Bukkit-(?<currentValue>[\\d.]+)\\.jar)",
+      ],
+      datasourceTemplate: "custom.luckpermsBukkit",
+      depNameTemplate: "luckperms-bukkit",
+      autoReplaceStringTemplate: "{{{newDigest}}}",
+    },
+    {
+      customType: "regex",
+      managerFilePatterns: ["/^(kubernetes)/.+/plugins\\.txt$/"],
+      matchStrings: [
+        "(?<currentDigest>https://download\\.luckperms\\.net/\\d+/velocity/LuckPerms-Velocity-(?<currentValue>[\\d.]+)\\.jar)",
+      ],
+      datasourceTemplate: "custom.luckpermsVelocity",
+      depNameTemplate: "luckperms-velocity",
+      autoReplaceStringTemplate: "{{{newDigest}}}",
     },
   ],
+  customDatasources: {
+    luckpermsBukkit: {
+      defaultRegistryUrlTemplate: "https://metadata.luckperms.net/data/all",
+      format: "json",
+      transformTemplates: [
+        '{ "releases": [ { "version": version, "digest": downloads.bukkit } ] }',
+      ],
+    },
+    luckpermsVelocity: {
+      defaultRegistryUrlTemplate: "https://metadata.luckperms.net/data/all",
+      format: "json",
+      transformTemplates: [
+        '{ "releases": [ { "version": version, "digest": downloads.velocity, "url": "https://luckperms.net/" } ] }',
+      ],
+    },
+  },
+  jenkins: {
+    enabled: false,
+  },
 }

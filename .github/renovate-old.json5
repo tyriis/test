@@ -1,0 +1,44 @@
+{
+  // enabled: true,
+  platform: "github",
+  extends: [
+    "config:best-practices",
+    "github>tyriis/renovate-config//dashboard/default.json5",
+    "github>tyriis/renovate-config//flux-infra.json5",
+    "github>tyriis/renovate-config//flux/prevent-automerge-flux.json5",
+    "github>tyriis/renovate-config//labels/semantic.json5",
+    "github>tyriis/renovate-config//helm/groups/rook-ceph.json5",
+    "github>tyriis/renovate-config//helm/groups/gha-runner-scale-set.json5",
+    "github>tyriis/renovate-config//flux/groups/flux.json5",
+    "github>tyriis/renovate-config//generic-regex-manager.json5",
+    "github>tyriis/renovate-config//docker/prevent-automerge-talos.json5",
+    "github>tyriis/renovate-config//nix/default.json5",
+    "github>tyriis/renovate-config//grafana-dashboards.json5",
+    "security:openssf-scorecard",
+  ],
+  semanticCommits: "enabled",
+  suppressNotifications: ["prIgnoreNotification"],
+  rebaseWhen: "conflicted",
+  // regexManagers: [],
+  packageRules: [],
+  ignorePaths: [
+    "^folder/**",
+    "^folder2/**",
+  ],
+  includePaths: [
+    // "terraform/images.yaml",
+    "kubernetes/**",
+  ],
+  npm: {
+    enabled: false, // disable for now
+  },
+  customManagers: [
+    {
+      customType: "regex",
+      description: "rolling with sha 1 line",
+      fileMatch: ["terraform/images.yaml"],
+      matchStrings: ["(?<something>[^\\s:]+): (?<depName>[^\\s:]+):(?<currentValue>\\S+)(@(?<currentDigest>sha256:\\S+)?)"],
+      datasourceTemplate: "docker",
+    },
+  ],
+}
