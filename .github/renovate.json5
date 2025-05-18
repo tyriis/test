@@ -30,12 +30,12 @@
       customType: "regex",
       managerFilePatterns: ["/^kubernetes/.+/plugins\\.txt$/"],
       matchStrings: [
-        "(?<currentSourceUrl>https://download\\.luckperms\\.net/\\d+/(?<type>velocity)/LuckPerms-Velocity-(?<currentValue>[\\d.]+)\\.jar)",
-        "(?<currentSourceUrl>https://download\\.luckperms\\.net/\\d+/(?<type>bukkit)/loader/LuckPerms-Bukkit-(?<currentValue>[\\d.]+)\\.jar)",
+        "https://download\\.luckperms\\.net/\\d+/(?<type>velocity)/LuckPerms-Velocity-(?<currentValue>[\\d.]+)\\.jar",
+        "https://download\\.luckperms\\.net/\\d+/(?<type>bukkit)/loader/LuckPerms-Bukkit-(?<currentValue>[\\d.]+)\\.jar",
       ],
       datasourceTemplate: "custom.luckperms-{{type}}",
       depNameTemplate: "luckperms",
-      autoReplaceStringTemplate: "{{{sourceUrl}}}",
+      autoReplaceStringTemplate: "{{{url}}}",
     },
   ],
   customDatasources: {
@@ -43,14 +43,14 @@
       defaultRegistryUrlTemplate: "https://metadata.luckperms.net/data/all",
       format: "json",
       transformTemplates: [
-        '{ "releases": [ { "version": version } ], "homepage": "https://luckperms.net/", "sourceUrl": downloads.bukkit }',
+        '{ "releases": [ { "version": version } ], "homepage": "https://luckperms.net/", "sourceUrl": downloads.bukkit, "url": downloads.bukkit }',
       ],
     },
     "luckperms-velocity": {
       defaultRegistryUrlTemplate: "https://metadata.luckperms.net/data/all",
       format: "json",
       transformTemplates: [
-        '{ "releases": [ { "version": version } ], "homepage": "https://luckperms.net/", "sourceUrl": downloads.velocity }',
+        '{ "releases": [ { "version": version } ], "homepage": "https://luckperms.net/", "sourceUrl": downloads.velocity, "url": downloads.velocity }',
       ],
     },
   },
