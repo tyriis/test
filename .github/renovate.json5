@@ -30,8 +30,8 @@
       customType: "regex",
       managerFilePatterns: ["/^kubernetes/.+/plugins\\.txt$/"],
       matchStrings: [
-        "(?<currentDigest>https://download\\.luckperms\\.net/\\d+/(?<type>velocity)/LuckPerms-Velocity-(?<currentValue>[\\d.]+)\\.jar)",
-        "(?<currentDigest>https://download\\.luckperms\\.net/\\d+/(?<type>bukkit)/loader/LuckPerms-Bukkit-(?<currentValue>[\\d.]+)\\.jar)",
+        "(?<currentSourceUrl>https://download\\.luckperms\\.net/\\d+/(?<type>velocity)/LuckPerms-Velocity-(?<currentValue>[\\d.]+)\\.jar)",
+        "(?<currentSourceUrl>https://download\\.luckperms\\.net/\\d+/(?<type>bukkit)/loader/LuckPerms-Bukkit-(?<currentValue>[\\d.]+)\\.jar)",
       ],
       datasourceTemplate: "custom.luckperms-{{type}}",
       depNameTemplate: "luckperms",
