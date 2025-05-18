@@ -4,6 +4,7 @@
     "github>techtales-io/renovate-config:base.json5",
     "github>techtales-io/renovate-config//dependencies/minecraft.json5",
     "github>tyriis/renovate-config//generic-regex-manager.json5", //  TODO: reconfigure
+    "github>tyriis/test//.github/minecraft-luckperms.json5",
   ],
   ignorePaths: [
   ],
@@ -18,42 +19,42 @@
   vulnerabilityAlerts: {
     enabled: false,
   },
-  packageRules: [
-    {
-      matchDatasources: ["custom.luckperms-bukkit", "custom.luckperms-velocity"],
-      semanticCommitScope: "minecraft",
-      commitMessageTopic: "plugin {{depName}}",
-    },
-  ],
-  customManagers: [
-    {
-      customType: "regex",
-      managerFilePatterns: ["/^kubernetes/.+/plugins\\.txt$/"],
-      matchStrings: [
-        "https://download\\.luckperms\\.net/\\d+/(?<type>velocity)/LuckPerms-Velocity-(?<currentValue>[\\d.]+)\\.jar",
-        "https://download\\.luckperms\\.net/\\d+/(?<type>bukkit)/loader/LuckPerms-Bukkit-(?<currentValue>[\\d.]+)\\.jar",
-      ],
-      datasourceTemplate: "custom.luckperms-{{type}}",
-      depNameTemplate: "luckperms",
-      autoReplaceStringTemplate: "{{{url}}}",
-    },
-  ],
-  customDatasources: {
-    "luckperms-bukkit": {
-      defaultRegistryUrlTemplate: "https://metadata.luckperms.net/data/all",
-      format: "json",
-      transformTemplates: [
-        '{ "releases": [ { "version": version } ], "homepage": "https://luckperms.net/", "sourceUrl": "https://github.com/LuckPerms/LuckPerms", "url": downloads.bukkit }',
-      ],
-    },
-    "luckperms-velocity": {
-      defaultRegistryUrlTemplate: "https://metadata.luckperms.net/data/all",
-      format: "json",
-      transformTemplates: [
-        '{ "releases": [ { "version": version } ], "homepage": "https://luckperms.net/", "sourceUrl": "https://github.com/LuckPerms/LuckPerms", "url": downloads.velocity }',
-      ],
-    },
-  },
+  // packageRules: [
+  //   {
+  //     matchDatasources: ["custom.luckperms-bukkit", "custom.luckperms-velocity"],
+  //     semanticCommitScope: "minecraft",
+  //     commitMessageTopic: "plugin {{depName}}",
+  //   },
+  // ],
+  // customManagers: [
+  //   {
+  //     customType: "regex",
+  //     managerFilePatterns: ["/^kubernetes/.+/plugins\\.txt$/"],
+  //     matchStrings: [
+  //       "https://download\\.luckperms\\.net/\\d+/(?<type>velocity)/LuckPerms-Velocity-(?<currentValue>[\\d.]+)\\.jar",
+  //       "https://download\\.luckperms\\.net/\\d+/(?<type>bukkit)/loader/LuckPerms-Bukkit-(?<currentValue>[\\d.]+)\\.jar",
+  //     ],
+  //     datasourceTemplate: "custom.luckperms-{{type}}",
+  //     depNameTemplate: "luckperms",
+  //     autoReplaceStringTemplate: "{{{sourceUrl}}}",
+  //   },
+  // ],
+  // customDatasources: {
+  //   "luckperms-bukkit": {
+  //     defaultRegistryUrlTemplate: "https://metadata.luckperms.net/data/all",
+  //     format: "json",
+  //     transformTemplates: [
+  //       '{ "releases": [ { "version": version } ], "homepage": "https://github.com/LuckPerms/LuckPerms", "sourceUrl": downloads.bukkit }',
+  //     ],
+  //   },
+  //   "luckperms-velocity": {
+  //     defaultRegistryUrlTemplate: "https://metadata.luckperms.net/data/all",
+  //     format: "json",
+  //     transformTemplates: [
+  //       '{ "releases": [ { "version": version } ], "homepage": "https://github.com/LuckPerms/LuckPerms", "sourceUrl": downloads.velocity }',
+  //     ],
+  //   },
+  // },
   jenkins: {
     enabled: false,
   },
