@@ -35,7 +35,7 @@
       ],
       datasourceTemplate: "custom.luckperms-{{type}}",
       depNameTemplate: "luckperms",
-      autoReplaceStringTemplate: "{{{newDigest}}}",
+      autoReplaceStringTemplate: "{{{sourceUrl}}}",
     },
   ],
   customDatasources: {
@@ -43,14 +43,14 @@
       defaultRegistryUrlTemplate: "https://metadata.luckperms.net/data/all",
       format: "json",
       transformTemplates: [
-        '{ "releases": [ { "version": version, "digest": downloads.bukkit, "url": "https://luckperms.net/" } ] }',
+        '{ "releases": [ { "version": version, "digest": downloads.bukkit, "url": "https://luckperms.net/", "sourceUrl": downloads.bukkit } ] }',
       ],
     },
     "luckperms-velocity": {
       defaultRegistryUrlTemplate: "https://metadata.luckperms.net/data/all",
       format: "json",
       transformTemplates: [
-        '{ "releases": [ { "version": version, "digest": downloads.velocity, "url": "https://luckperms.net/" } ] }',
+        '{ "releases": [ { "version": version, "digest": downloads.velocity, "url": "https://luckperms.net/", "sourceUrl": downloads.velocity } ] }',
       ],
     },
   },
