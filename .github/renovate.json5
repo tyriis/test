@@ -29,14 +29,11 @@
     {
       customType: "regex",
       managerFilePatterns: ["/^kubernetes/.+/plugins\\.txt$/"],
-      //managerFilePatterns: [
-      //  "/^kubernetes/apps/gaming/minecraft-java/.*/config/plugins\\.txt$/",
-      //],
       matchStrings: [
-        "(?<currentDigest>https://download\\.luckperms\\.net/\\d+/bukkit/loader/LuckPerms-Bukkit-(?<currentValue>[\\d.]+)\\.jar)",
+        "(?<currentDigest>https://download\\.luckperms\\.net/\\d+/(?<type>bukkit|velocity)(?:/loader)?/LuckPerms-(<?typeCaps>Bukkit|Velocity)-(?<currentValue>[\\d.]+)\\.jar)",
       ],
       datasourceTemplate: "custom.luckpermsBukkit",
-      depNameTemplate: "luckperms-bukkit",
+      depNameTemplate: "luckperms-{{type}}",
       autoReplaceStringTemplate: "{{{newDigest}}}",
     },
     {
