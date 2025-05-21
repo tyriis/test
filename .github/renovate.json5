@@ -3,16 +3,11 @@
   extends: [
     "github>techtales-io/renovate-config:base.json5",
     "github>techtales-io/renovate-config//dependencies/minecraft.json5",
-    "github>tyriis/renovate-config//generic-regex-manager.json5", //  TODO: reconfigure
-    // "github>tyriis/test//.github/minecraft-luckperms.json5",
+    "github>tyriis/renovate-config//generic-regex-manager.json5",
   ],
-  "pinDigests": true,
-  ignorePaths: [
-  ],
-  includePaths: [
-    // "terraform/images.yaml",
-    "kubernetes/apps/gaming/minecraft-java/**",
-  ],
+  pinDigests: true,
+  ignorePaths: [],
+  includePaths: ["kubernetes/apps/gaming/minecraft-java/**"],
   rebaseWhen: "conflicted",
   ansible: {
     enabled: false,
@@ -22,7 +17,10 @@
   },
   packageRules: [
     {
-      matchDatasources: ["custom.luckperms-bukkit", "custom.luckperms-velocity"],
+      matchDatasources: [
+        "custom.luckperms-bukkit",
+        "custom.luckperms-velocity",
+      ],
       semanticCommitScope: "minecraft",
       commitMessageTopic: "plugin {{depName}}",
     },
@@ -30,24 +28,23 @@
   customManagers: [
     {
       customType: "regex",
-      fileMatch: ["^kubernetes/.+\\.ya?ml$"],
+      managerFilePatterns: ["/^kubernetes/.+\\.ya?ml$/"],
       matchStrings: [
-        "https://api\\.papermc\\.io/v2/projects/paper/versions/(?<currentValue>[\\d.]+)/builds/(?<currentDigest>\\d+)/downloads/paper-[\\d.]+-\\d+.jar"
+        "https://api\\.papermc\\.io/v2/projects/paper/versions/(?<currentValue>[\\d.]+)/builds/(?<currentDigest>\\d+)/downloads/paper-[\\d.]+-\\d+.jar",
       ],
       datasourceTemplate: "custom.papermc",
       depNameTemplate: "papermc",
-      autoReplaceStringTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{{currentVersion}}}/builds/{{{newDigest}}}/downloads/paper-{{{currentVersion}}}-{{{newDigest}}}.jar"
+      autoReplaceStringTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{{currentVersion}}}/builds/{{{newDigest}}}/downloads/paper-{{{currentVersion}}}-{{{newDigest}}}.jar",
     },
   ],
-
   customDatasources: {
-    "papermc": {
+    papermc: {
       defaultRegistryUrlTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{currentValue}}",
       format: "json",
       transformTemplates: [
-        '{ "releases": [ { "version": "{{currentValue}}", "digest": $string(builds[-1]) } ], "sourceUrl": "https://github.com/PaperMC/Paper", "homepage": "https://papermc.io" }'
-      ]
-    }
+        '{ "releases": [ { "version": "{{currentValue}}", "digest": $string(builds[-1]) } ], "sourceUrl": "https://github.com/PaperMC/Paper", "homepage": "https://papermc.io" }',
+      ],
+    },
   },
   jenkins: {
     enabled: false,
