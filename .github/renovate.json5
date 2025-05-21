@@ -42,7 +42,7 @@
 
   customDatasources: {
     "papermc": {
-      defaultRegistryUrlTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{currentVersion}}",
+      defaultRegistryUrlTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{currentValue}}",
       format: "json",
       transformTemplates: [
         "{ releases: [ { version: '{{currentVersion}}', digest: builds[-1], digests: builds, digest: { 'latest-build': builds[-1] }, build: builds[-1] } ], sourceUrl: 'https://papermc.io/downloads', homepage: 'https://papermc.io' }"
