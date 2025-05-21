@@ -46,7 +46,7 @@
       defaultRegistryUrlTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{currentValue}}",
       format: "json",
       transformTemplates: [
-        '{ "releases": [ { "version": {{currentValue}}, "digest": $string(builds[-1]), "build": builds[-1] } ], "sourceUrl": "https://papermc.io/downloads", "homepage": "https://papermc.io" }'
+        '{ "releases": [ { "version": "{{currentValue}}", "digest": $string(builds[-1]), "build": builds[-1] } ], "sourceUrl": "https://papermc.io/downloads", "homepage": "https://papermc.io" }'
       ]
     }
   },
