@@ -31,7 +31,7 @@
       customType: "regex",
       fileMatch: ["^kubernetes/.+\\.ya?ml$"],
       matchStrings: [
-        "https://api\\.papermc\\.io/v2/projects/paper/versions/(?<currentVersion>[\\d.]+)/builds/(?<currentDigest>\\d+)/downloads/paper-(?<depName>[\\d.]+)-\\k<currentDigest>\\.jar"
+        "https://api\\.papermc\\.io/v2/projects/paper/versions/(?<currentValue>[\\d.]+)/builds/(?<currentDigest>\\d+)/downloads/paper-[\\d.]+-\\k<currentDigest>\\.jar"
       ],
       datasourceTemplate: "custom.papermc",
       depNameTemplate: "papermc",
