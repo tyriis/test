@@ -37,7 +37,7 @@
       datasourceTemplate: "custom.papermc",
       depNameTemplate: "papermc",
       // extractVersionTemplate: "^(?<version>\\d+\\.\\d+\\.\\d+)$",
-      autoReplaceStringTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{{currentVersion}}}/builds/{{{newDigest}}}/downloads/paper-{{{currentVersion}}}-{{{newDigest}}}.jar"
+      autoReplaceStringTemplate: "{{{sourceUrl}}}"
     },
   ],
 
