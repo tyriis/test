@@ -42,23 +42,10 @@
 
   customDatasources: {
     "papermc": {
-      defaultRegistryUrlTemplate: "https://api.papermc.io/v2/projects/paper",
-      format: "json",
-      transformTemplates: [
-        "{ releases: [ { version: Math.max(...builds.versions) } ], sourceUrl: 'https://papermc.io/downloads', homepage: 'https://papermc.io' }"
-      ],
-      customDigests: {
-        "latest-build": {
-          datasourceTemplate: "custom.papermc.digest",
-          registryUrlTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{currentVersion}}"
-        }
-      }
-    },
-    "papermc.digest": {
       defaultRegistryUrlTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{currentVersion}}",
       format: "json",
       transformTemplates: [
-        "{ digests: { 'latest-build': Math.max(...builds) } }"
+        "{ releases: [ { version: '{{currentVersion}}', digest: { 'latest-build': Math.max(...builds) }, build:  Math.max(...builds } ], sourceUrl: 'https://papermc.io/downloads', homepage: 'https://papermc.io' }"
       ]
     }
   },
