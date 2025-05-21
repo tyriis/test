@@ -42,10 +42,10 @@
 
   customDatasources: {
     "papermc": {
-      defaultRegistryUrlTemplate: "https://api.papermc.io/v2/projects/paper/versions/1.21.5",
+      defaultRegistryUrlTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{currentVersion}}",
       format: "json",
       transformTemplates: [
-        '{ "releases": [ { "version": "1.21.5", "digest": $string(builds[-1]), "build": builds[-1] } ], "sourceUrl": "https://papermc.io/downloads", "homepage": "https://papermc.io" }'
+        '{ "releases": [ { "version": {{currentVersion}}, "digest": $string(builds[-1]), "build": builds[-1] } ], "sourceUrl": "https://papermc.io/downloads", "homepage": "https://papermc.io" }'
       ]
     }
   },
