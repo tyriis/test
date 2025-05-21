@@ -4,7 +4,7 @@
     "github>techtales-io/renovate-config:base.json5",
     "github>techtales-io/renovate-config//dependencies/minecraft.json5",
     "github>tyriis/renovate-config//generic-regex-manager.json5", //  TODO: reconfigure
-    "github>tyriis/test//.github/minecraft-luckperms.json5",
+    // "github>tyriis/test//.github/minecraft-luckperms.json5",
   ],
   ignorePaths: [
   ],
@@ -19,42 +19,49 @@
   vulnerabilityAlerts: {
     enabled: false,
   },
-  // packageRules: [
-  //   {
-  //     matchDatasources: ["custom.luckperms-bukkit", "custom.luckperms-velocity"],
-  //     semanticCommitScope: "minecraft",
-  //     commitMessageTopic: "plugin {{depName}}",
-  //   },
-  // ],
-  // customManagers: [
-  //   {
-  //     customType: "regex",
-  //     managerFilePatterns: ["/^kubernetes/.+/plugins\\.txt$/"],
-  //     matchStrings: [
-  //       "https://download\\.luckperms\\.net/\\d+/(?<type>velocity)/LuckPerms-Velocity-(?<currentValue>[\\d.]+)\\.jar",
-  //       "https://download\\.luckperms\\.net/\\d+/(?<type>bukkit)/loader/LuckPerms-Bukkit-(?<currentValue>[\\d.]+)\\.jar",
-  //     ],
-  //     datasourceTemplate: "custom.luckperms-{{type}}",
-  //     depNameTemplate: "luckperms",
-  //     autoReplaceStringTemplate: "{{{sourceUrl}}}",
-  //   },
-  // ],
-  // customDatasources: {
-  //   "luckperms-bukkit": {
-  //     defaultRegistryUrlTemplate: "https://metadata.luckperms.net/data/all",
-  //     format: "json",
-  //     transformTemplates: [
-  //       '{ "releases": [ { "version": version } ], "homepage": "https://github.com/LuckPerms/LuckPerms", "sourceUrl": downloads.bukkit }',
-  //     ],
-  //   },
-  //   "luckperms-velocity": {
-  //     defaultRegistryUrlTemplate: "https://metadata.luckperms.net/data/all",
-  //     format: "json",
-  //     transformTemplates: [
-  //       '{ "releases": [ { "version": version } ], "homepage": "https://github.com/LuckPerms/LuckPerms", "sourceUrl": downloads.velocity }',
-  //     ],
-  //   },
-  // },
+  packageRules: [
+    {
+      matchDatasources: ["custom.luckperms-bukkit", "custom.luckperms-velocity"],
+      semanticCommitScope: "minecraft",
+      commitMessageTopic: "plugin {{depName}}",
+    },
+  ],
+  customManagers: [
+    {
+      customType: "regex",
+      fileMatch: ["^kubernetes/.+\\.ya?ml$"],
+      matchStrings: [
+        "https://api\\.papermc\\.io/v2/projects/paper/versions/(?<currentVersion>[\\d.]+)/builds/(?<currentDigest>\\d+)/downloads/paper-(?<depName>[\\d.]+)-\\k<currentDigest>\\.jar"
+      ],
+      datasourceTemplate: "custom.papermc",
+      depNameTemplate: "papermc",
+      extractVersionTemplate: "^(?<version>\\d+\\.\\d+\\.\\d+)$",
+      autoReplaceStringTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{{currentVersion}}}/builds/{{{newDigest}}}/downloads/paper-{{{currentVersion}}}-{{{newDigest}}}.jar"
+    },
+  ],
+
+  customDatasources: {
+    "papermc": {
+      defaultRegistryUrlTemplate: "https://api.papermc.io/v2/projects/paper",
+      format: "json",
+      transformTemplates: [
+        "{ releases: [ { version: Math.max(...builds.versions) } ], sourceUrl: 'https://papermc.io/downloads', homepage: 'https://papermc.io' }"
+      ],
+      customDigests: {
+        "latest-build": {
+          datasourceTemplate: "custom.papermc.digest",
+          registryUrlTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{currentVersion}}"
+        }
+      }
+    },
+    "papermc.digest": {
+      defaultRegistryUrlTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{currentVersion}}",
+      format: "json",
+      transformTemplates: [
+        "{ digests: { 'latest-build': Math.max(...builds) } }"
+      ]
+    }
+  },
   jenkins: {
     enabled: false,
   },

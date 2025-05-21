@@ -10,7 +10,7 @@
         "https://download\\.luckperms\\.net/\\d+/(?<type>bukkit)/loader/LuckPerms-Bukkit-(?<currentValue>[\\d.]+)\\.jar",
       ],
       datasourceTemplate: "custom.luckperms-{{type}}",
-      depNameTemplate: "luckperms",
+      depNameTemplate: "luckPerms",
       autoReplaceStringTemplate: "{{{sourceUrl}}}",
     },
   ],
