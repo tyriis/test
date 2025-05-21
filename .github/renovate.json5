@@ -5,6 +5,7 @@
     "github>techtales-io/renovate-config//dependencies/minecraft.json5",
     "github>tyriis/renovate-config//generic-regex-manager.json5", //  TODO: reconfigure
     // "github>tyriis/test//.github/minecraft-luckperms.json5",
+    "github>tyriis/test//.github/minecraft-papermc-builds.json5",
   ],
   pinDigests: true,
   ignorePaths: [],
@@ -25,29 +26,14 @@
       semanticCommitScope: "minecraft",
       commitMessageTopic: "plugin {{depName}}",
     },
-  ],
-  customManagers: [
     {
-      customType: "regex",
-      managerFilePatterns: ["/^kubernetes/.+\\.ya?ml$/"],
-      matchStrings: [
-        "https://api\\.papermc\\.io/v2/projects/paper/versions/(?<currentValue>[\\d.]+)/builds/(?<currentDigest>\\d+)/downloads/paper-[\\d.]+-\\d+.jar"
+      matchDatasources: [
+        "custom.papermc",
       ],
-      datasourceTemplate: "custom.papermc",
-      depNameTemplate: "papermc",
-      autoReplaceStringTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{{currentVersion}}}/builds/{{{newDigest}}}/downloads/paper-{{{currentVersion}}}-{{{newDigest}}}.jar",
+      semanticCommitScope: "minecraft",
     },
   ],
 
-  customDatasources: {
-    "papermc": {
-      defaultRegistryUrlTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{currentValue}}",
-      format: "json",
-      transformTemplates: [
-        '{ "releases": [ { "version": "{{currentValue}}", "digest": $string(builds[-1]) } ], "sourceUrl": "https://github.com/PaperMC/Paper", "homepage": "https://papermc.io" }'
-      ]
-    }
-  },
   jenkins: {
     enabled: false,
   },

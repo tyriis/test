@@ -1,0 +1,31 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  description: "Update Papermc download urls for Minecraft",
+  customManagers: [
+    {
+      customType: "regex",
+      managerFilePatterns: ["/^kubernetes/.+\\.ya?ml$/"],
+      matchStrings: [
+        "https://api\\.papermc\\.io/v2/projects/paper/versions/(?<currentValue>[\\d.]+)/builds/(?<currentDigest>\\d+)/downloads/paper-[\\d.]+-\\d+.jar",
+      ],
+      datasourceTemplate: "custom.papermc",
+      depNameTemplate: "papermc",
+      autoReplaceStringTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{{currentVersion}}}/builds/{{{newDigest}}}/downloads/paper-{{{currentVersion}}}-{{{newDigest}}}.jar",
+    },
+  ],
+  customDatasources: {
+    "papermc": {
+      defaultRegistryUrlTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{currentValue}}",
+      format: "json",
+      transformTemplates: [
+        '{ "releases": [ { "version": "{{currentValue}}", "digest": $string(builds[-1]) } ], "sourceUrl": "https://github.com/PaperMC/Paper", "homepage": "https://papermc.io" }'
+      ]
+    }
+  },
+  packageRules: [
+    {
+      matchDatasources: ["custom.papermc"],
+      semanticCommitScope: "minecraft",
+    },
+  ],
+}
