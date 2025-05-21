@@ -32,22 +32,20 @@
       customType: "regex",
       fileMatch: ["^kubernetes/.+\\.ya?ml$"],
       matchStrings: [
-        // "https://api\\.papermc\\.io/v2/projects/paper/versions/(?<currentValue>[\\d.]+)/builds/(?<currentDigest>\\d+)/downloads/paper-[\\d.]+-\\d+.jar"
-        "https://api\\.papermc\\.io/v2/projects/paper/versions/(?<currentValue>[\\d.]+)/builds/\\d+/downloads/paper-[\\d.]+-\\d+.jar"
+        "https://api\\.papermc\\.io/v2/projects/paper/versions/(?<currentValue>[\\d.]+)/builds/(?<currentDigest>\\d+)/downloads/paper-[\\d.]+-\\d+.jar"
       ],
       datasourceTemplate: "custom.papermc",
       depNameTemplate: "papermc",
-      // extractVersionTemplate: "^(?<version>\\d+\\.\\d+\\.\\d+)$",
-      autoReplaceStringTemplate: "{{{sourceUrl}}}"
+      autoReplaceStringTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{{currentVersion}}}/builds/{{{newDigest}}}/downloads/paper-{{{currentVersion}}}-{{{newDigest}}}.jar"
     },
   ],
 
   customDatasources: {
     "papermc": {
-      defaultRegistryUrlTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{currentValue}}/builds",
+      defaultRegistryUrlTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{currentValue}}",
       format: "json",
       transformTemplates: [
-        '{ "releases": [ { "version": $join([version, "-", $string(builds[-1].build)]), "digest": $string(builds[-1].build), "build": $string(builds[-1].build), "releaseTimestamp": builds[-1].time } ], "sourceUrl": $join(["https://api.papermc.io/v2/projects/paper/versions/", version, "/builds/", $string(builds[-1].build), "/downloads/", builds[-1].downloads.application.name]), "homepage": "https://papermc.io" }'
+        '{ "releases": [ { "version": "{{currentValue}}", "digest": $string(builds[-1]) } ], "sourceUrl": "https://github.com/PaperMC/Paper", "homepage": "https://papermc.io" }'
       ]
     }
   },
