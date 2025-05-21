@@ -79,7 +79,7 @@ spec:
               TZ: ${SETTING_TZ}
               TYPE: "PAPER"
               # TODO renovate
-              PAPER_DOWNLOAD_URL: https://api.papermc.io/v2/projects/paper/versions/1.21.5/builds/93/downloads/paper-1.21.5-93.jar
+              PAPER_DOWNLOAD_URL: https://api.papermc.io/v2/projects/paper/versions/1.21.5/builds/92/downloads/paper-1.21.5-92.jar
               MEMORY: "1024M"
               MODS_FILE: /config/plugins.txt
               REPLACE_ENV_DURING_SYNC: "true"
