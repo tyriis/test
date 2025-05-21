@@ -6,6 +6,7 @@
     "github>tyriis/renovate-config//generic-regex-manager.json5", //  TODO: reconfigure
     // "github>tyriis/test//.github/minecraft-luckperms.json5",
   ],
+  "pinDigests": true,
   ignorePaths: [
   ],
   includePaths: [
