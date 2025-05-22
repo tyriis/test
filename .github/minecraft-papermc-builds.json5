@@ -1,5 +1,6 @@
 {
   $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  // make this work for verlocity aswell
   description: "Update Papermc download urls for Minecraft",
   customManagers: [
     {
@@ -8,17 +9,34 @@
       matchStrings: [
         "https://api\\.papermc\\.io/v2/projects/paper/versions/(?<currentValue>[\\d.]+)/builds/(?<currentDigest>\\d+)/downloads/paper-[\\d.]+-\\d+.jar",
       ],
-      datasourceTemplate: "custom.papermc",
-      depNameTemplate: "papermc",
+      datasourceTemplate: "custom.minecraft-paper",
+      depNameTemplate: "minecraft/paper",
       autoReplaceStringTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{{currentVersion}}}/builds/{{{newDigest}}}/downloads/paper-{{{currentVersion}}}-{{{newDigest}}}.jar",
     },
+    {
+      customType: "regex",
+      managerFilePatterns: ["/^kubernetes/.+\\.ya?ml$/"],
+      matchStrings: [
+        "VELOCITY_VERSION: \"(?<currentValue>[\\d.]+(-SNAPSHOT)?))\""
+      ],
+      datasourceTemplate: "custom.minecraft-velocity",
+      depNameTemplate: "minecraft/velocity",
+    },
+
   ],
   customDatasources: {
-    "papermc": {
+    "minecraft-paper": {
       defaultRegistryUrlTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{currentValue}}",
       format: "json",
       transformTemplates: [
-        '{ "releases": [ { "version": "{{currentValue}}", "digest": $string(builds[-1]) } ], "sourceUrl": "https://github.com/PaperMC/Paper", "homepage": "https://papermc.io" }'
+        '{ "releases": [ { "version": "{{currentValue}}", "digest": $string(builds[-1]) } ], "sourceUrl": "https://github.com/PaperMC/Paper", "homepage": "https://papermc.io/software/paper" }'
+      ]
+    },
+    "minecraft-velocity": {
+      defaultRegistryUrlTemplate: "https://api.papermc.io/v2/projects/velocity",
+      format: "json",
+      transformTemplates: [
+        '{ "releases": [ { "version": versions[-1] } ], "sourceUrl": "https://github.com/PaperMC/Velocity", "homepage": "https://papermc.io/software/velocity" }'
       ]
     }
   },
