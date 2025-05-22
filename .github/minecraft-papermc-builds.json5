@@ -17,7 +17,7 @@
       customType: "regex",
       managerFilePatterns: ["/^kubernetes/.+\\.ya?ml$/"],
       matchStrings: [
-        "VELOCITY_VERSION:\\s*\"(?<currentValue>[\\d.]+(-SNAPSHOT)?))\""
+        "VELOCITY_VERSION:\\s*\"(?<currentValue>[\\d.]+(-SNAPSHOT)?)\""
       ],
       datasourceTemplate: "custom.minecraft-velocity",
       depNameTemplate: "minecraft/velocity",
