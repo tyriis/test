@@ -44,7 +44,7 @@
     {
       matchDatasources: ["custom.minecraft-paper", "custom.minecraft-velocity"],
       semanticCommitScope: "minecraft",
-      ignoreUnstable: true,
+      ignoreUnstable: false,
     },
   ],
 }
