@@ -13,15 +13,15 @@
       depNameTemplate: "minecraft/paper",
       autoReplaceStringTemplate: "https://api.papermc.io/v2/projects/paper/versions/{{{currentVersion}}}/builds/{{{newDigest}}}/downloads/paper-{{{currentVersion}}}-{{{newDigest}}}.jar",
     },
-    // {
-    //   customType: "regex",
-    //   managerFilePatterns: ["/^kubernetes/.+\\.ya?ml$/"],
-    //   matchStrings: [
-    //     "VELOCITY_VERSION:\\s*\"(?<currentValue>[\\d.]+(-SNAPSHOT)?)\""
-    //   ],
-    //   datasourceTemplate: "custom.minecraft-velocity",
-    //   depNameTemplate: "minecraft/velocity",
-    // },
+    {
+      customType: "regex",
+      managerFilePatterns: ["/^kubernetes/.+\\.ya?ml$/"],
+      matchStrings: [
+        "VELOCITY_VERSION:\\s*\"(?<currentValue>[\\d.]+(-SNAPSHOT)?)\""
+      ],
+      datasourceTemplate: "custom.minecraft-velocity",
+      depNameTemplate: "minecraft/velocity",
+    },
 
   ],
   customDatasources: {
@@ -36,7 +36,7 @@
       defaultRegistryUrlTemplate: "https://api.papermc.io/v2/projects/velocity",
       format: "json",
       transformTemplates: [
-        '{ "releases": [ { "version": versions[-1] } ], "sourceUrl": "https://github.com/PaperMC/Velocity", "homepage": "https://papermc.io/software/velocity" }'
+        '{ "releases": [ { "version": $string(versions[-1]) } ], "sourceUrl": "https://github.com/PaperMC/Velocity", "homepage": "https://papermc.io/software/velocity" }'
       ]
     }
   },

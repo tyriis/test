@@ -59,7 +59,6 @@ spec:
               UID: "1000"
               GID: "1000"
               TYPE: "VELOCITY"
-              # renovate: depName=minecraft/velocity datasource=custom.minecraft-velocity versioning=semver-coerced
               VELOCITY_VERSION: "3.3.0-SNAPSHOT"
               # VELOCITY_BUILD_ID: "latest"
               PLUGINS_FILE: /config/plugins.txt
