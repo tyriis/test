@@ -43,7 +43,11 @@
   packageRules: [
     {
       matchDatasources: ["custom.minecraft-paper", "custom.minecraft-velocity"],
+      commitMessageTopic: "{{depName}}",
       semanticCommitScope: "minecraft",
+    },
+    {
+      matchDatasources: ["custom.minecraft-velocity"],
       ignoreUnstable: false,
     },
   ],
